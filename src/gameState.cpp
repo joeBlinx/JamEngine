@@ -4,6 +4,7 @@
 
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
+#include <2dEngine/keyEventHandler.hpp>
 #include "gameState.hpp"
 #include "scene.hpp"
 namespace JamEngine {
@@ -35,11 +36,14 @@ namespace JamEngine {
 					if(ev.key.keysym.sym == SDLK_ESCAPE){
 						gameOver();
 					}
+					KeyEventHandler::executePressedFunction(ev.key.keysym.sym);
+					break;
+				case SDL_KEYUP:
+					KeyEventHandler::executeReleasedFunction(ev.key.keysym.sym);
 					break;
 				case SDL_QUIT:
 					gameOver();
 					break;
-
 
 				default:break;
 			}
