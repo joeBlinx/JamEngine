@@ -7,10 +7,23 @@ file(GLOB_RECURSE CPP_FILES src/*.cpp)
 
 include_directories(BEFORE_SYSTEM PRIVATE inc)
 include_directories(BEFORE_SYSTEM PRIVATE inc/2dEngine)
+include_directories(BEFORE_SYSTEM PRIVATE glish/inc)
 
 set(SOURCE_FILES ${HPP_FILES} ${CPP_FILES} )
 
+if(UNIX)
 add_compile_options(-Wall -pedantic -Wextra )
+
+elseif(WIN32)
+	include_directories(BEFORE_SYSTEM inc/)
+	if(CMAKE_SIZEOF_VOID_P EQUAL "8" )
+		link_directories(lib/x64)
+	else()
+		link_directories(lib/x86)
+	endif()
+add_compile_options("/std:c++latest")
+
+endif()
 add_subdirectory(glish)
 
 add_library(2Dengine ${SOURCE_FILES})

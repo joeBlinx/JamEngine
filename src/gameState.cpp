@@ -5,20 +5,23 @@
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 #include <2dEngine/keyEventHandler.hpp>
+#include <2dEngine/eventManager.hpp>
 #include "gameState.hpp"
 #include "scene.hpp"
 namespace JamEngine {
-	GameState gameState;
+	GameState GameState::gameState;
 
 	void GameState::loop(SDL_Window *window) {
-		while(!endGame) {
+		while(!gameState.endGame) {
 
 			int start = SDL_GetTicks();
 			int end;
 			glClear(GL_COLOR_BUFFER_BIT);
-			input();
-			update();
-			display();
+			EventManager::execute(0.017);
+			gameState.input();
+			gameState.update();
+			gameState.display();
+
 			SDL_GL_SwapWindow(window);
 			end = SDL_GetTicks();
 			int sub = end - start;
@@ -61,6 +64,6 @@ namespace JamEngine {
 	}
 
 	void GameState::gameOver() {
-		endGame = true;
+		gameState.endGame = true;
 	}
 }

@@ -8,6 +8,7 @@
 namespace JamEngine {
 	class GameState {
 
+		static GameState gameState;
 		bool endGame = false;
 
 		GameState(GameState&&) = delete;
@@ -21,12 +22,11 @@ namespace JamEngine {
 		void display();
 	public:
 		GameState() = default;
-		void loop(SDL_Window *window);
-		void gameOver();
+		static void loop(SDL_Window *window);
+		static void gameOver();
 
 	};
 
-	extern GameState gameState;
 }
 
 

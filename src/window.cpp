@@ -7,7 +7,6 @@
 #include <windowSettings.hpp>
 #include <GL/glew.h>
 #include <glish/utils//log.hpp>
-#include <glEngine/glEngine.hpp>
 
 
 namespace JamEngine {
