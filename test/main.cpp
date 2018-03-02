@@ -9,6 +9,7 @@
 #include <2dEngine/entity.hpp>
 #include <2dEngine/scene.hpp>
 #include <2dEngine/eventManager.hpp>
+#include <2dEngine/spriteSheetManager.hpp>
 
 using namespace JamEngine;
 
@@ -35,10 +36,11 @@ int main(){
 	JamEngine::KeyEventHandler::init("config.ini");
 	JamEngine::KeyEventHandler::addKeyEventPressed("jump", []{std::cout << "coucou\n" ;});
 	JamEngine::KeyEventHandler::addKeyEventReleased("move", []{std::cout << "move\n" ;});
-	EventManager::addEvent(3, [](float delta){
+	/*EventManager::addEvent(3, [](float delta){
 		std::cout << "Hey, i'm the first event of this awesome eventManager, I've been here for " << delta << " second\n";
-	});
-
+	});*/
+	SpriteSheetManager::init("texture.ini");
+	SpriteSheetManager::get("sonic");
 	Window d{settings};
 	GameState::loop(d);
 	return 0;
