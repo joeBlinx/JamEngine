@@ -10,6 +10,8 @@
 #include <2dEngine/scene.hpp>
 #include <2dEngine/eventManager.hpp>
 #include <2dEngine/spriteSheetManager.hpp>
+#include <SDL2/SDL_mixer.h>
+#include <2dEngine/sound.hpp>
 
 using namespace JamEngine;
 
@@ -42,6 +44,9 @@ int main(){
 	SpriteSheetManager::init("texture.ini");
 	SpriteSheetManager::get("sonic");
 	Window d{settings};
+	Sound::init("sound.ini");
+
+	JamEngine::KeyEventHandler::addKeyEventReleased("son", []{Sound::play("sound");});
 	GameState::loop(d);
 	return 0;
 }

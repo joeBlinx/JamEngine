@@ -7,6 +7,7 @@
 
 #include <2dEngine/entity.hpp>
 #include <vector>
+
 namespace JamEngine {
 	class Scene {
 		std::vector<Entity * > entities;

@@ -38,4 +38,4 @@ set(TEST_SOURCE_FILES ${TEST_HPP_FILES} ${TEST_CPP_FILES} )
 add_executable(2dtest ${TEST_SOURCE_FILES})
 
 add_dependencies(2dtest 2Dengine)
-target_link_libraries(2dtest 2Dengine SDL2 GL GLEW glish GLU)
+target_link_libraries(2dtest 2Dengine SDL2 GL GLEW glish GLU SDL2_mixer)
