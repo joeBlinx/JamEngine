@@ -10,6 +10,7 @@ namespace JamEngine {
 
 		static GameState gameState;
 		bool endGame = false;
+		float delta = 0.017;
 
 		GameState(GameState&&) = delete;
 		GameState(GameState const &) = delete;

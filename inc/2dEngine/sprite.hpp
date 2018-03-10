@@ -5,20 +5,23 @@
 #ifndef INC_2DENGINE_SPRITE_HPP
 #define INC_2DENGINE_SPRITE_HPP
 
-#include "spriteSheet.hpp"
+#include <2dEngine/spriteSheet.hpp>
+#include <glm/vec2.hpp>
 
 namespace JamEngine {
+	struct info{
+		glm::vec2 orig;
+		glm::vec2 size;
+	};
 	class Sprite {
-		struct info{
-			glm::vec2 orig;
-			glm::vec2 size;
-		};
-		SpriteSheet & spriteSheet;
+
+		SpriteSheet * spriteSheet = nullptr ;
 		int nbImage = 0;
-		float timeChange;
+		float timeChange = 0;
 		float currentTime = 0;
 	public:
-		Sprite(SpriteSheet & spriteSheet, float timeChange);
+		Sprite() = default;
+		Sprite(SpriteSheet *spriteSheet, float timeChange, int nbImage = 0);
 		info update(float delta);
 	};
 }

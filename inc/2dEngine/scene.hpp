@@ -7,25 +7,45 @@
 
 #include <2dEngine/entity.hpp>
 #include <vector>
+#include <set>
 
 namespace JamEngine {
-	class Scene {
-		std::vector<Entity * > entities;
+	struct compare{
 
+		bool operator()(Entity *a, Entity * b){
+			return a->getPriority() < b->getPriority();
+		}
+	};
+	class Scene {
+		std::multiset<Entity *, compare > entities;
+
+
+		std::set<Entity *> deadEntities;
+		std::set<Entity *> removeEntities;
+
+		std::vector<std::string> layers;
 		Scene(Scene&&) = delete;
 		Scene(Scene const&) = delete;
 		Scene&operator= (Scene&&) = delete;
 		Scene&operator= (Scene const&) = delete;
+
+		void destroyEntities();
+		void removeWhithoutDestorying();
 	public:
-		Scene() = default;
+		Scene();
+		void init(std::string && layerFile);
 		void update();
 		void checkCollision();
 		void add(Entity * entity);
+		std::multiset<Entity *, compare > const & getEntity();
+		void destroy(Entity *entity);
+		void remove(Entity *entity);
+		void clear();
+		~Scene();
 
-
+		void clearNoDelete();
 	};
 	extern Scene scene;
 }
-
 
 #endif //INC_2DENGINE_SCENE_HPP
