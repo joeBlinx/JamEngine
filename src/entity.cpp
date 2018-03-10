@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <2dEngine/spriteSheetManager.hpp>
+#include <2dEngine/shapeManager.hpp>
 #include "entity.hpp"
 
 namespace JamEngine{
@@ -19,13 +20,12 @@ namespace JamEngine{
 	}
 
 	void Entity::setSpriteSheet(std::string const &name, float timeChange) {
-		sprite = Sprite{SpriteSheetManager::get(name), timeChange};
+		sprite = Sprite(SpriteSheetManager::get(name), timeChange);
 	}
 
 	void Entity::display(float delta) {
 		auto info = sprite.update(delta);
 		ShapeManager::getShape().bind();
-		ProgramManager::use(info.orig, info.size, getGraphicsSize(), pos, angle);
 
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	}

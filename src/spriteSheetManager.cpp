@@ -1,6 +1,4 @@
 //
-// Created by stiven on 18-03-02.
-//
 
 #include <fstream>
 #include <iostream>
@@ -28,18 +26,18 @@ namespace JamEngine{
 			if(!(file >> key >> path >> nbHoriz >> nbVert)){
 				break;
 			}
-			spriteSheets.emplace(std::pair{key, SpriteSheet{folder+"/" + path, nbHoriz, nbVert}});
+			spriteSheets.emplace(std::pair<std::string, SpriteSheet>{key, SpriteSheet{folder+"/" + path, nbHoriz, nbVert}});
 		}
 
 	}
 
-	SpriteSheet & SpriteSheetManager::get(std::string const &key) {
+	SpriteSheet * SpriteSheetManager::get(std::string const &key) {
 		auto & spriteSheets = spriteSheetManager.spriteSheets;
 		if(spriteSheets.find(key) != spriteSheets.end()){
-			return spriteSheets[key];
+			return &spriteSheets[key];
 		}
 		std::cerr << "this key : " << key << " doesn't exist";
-		return spriteSheetManager.empty;
+		return nullptr;
 
 	}
 }
