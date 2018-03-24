@@ -22,7 +22,8 @@ namespace JamEngine {
 	public:
 		Sound();
 		static void init(std::string && initFile);
-		static void play(std::string &&);
+		static void play(std::string &&son, float volume = 0, int numberLoop = 0);
+		static void playInfinite(std::string &&son, float volume = 0);
 		static void pauseAll();
 		static bool getPause();
 		~Sound();

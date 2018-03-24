@@ -46,7 +46,7 @@ Scene::add(&a);
 ```
 #### KeyEvent
 To use the KeyEventHandler you need to prepare two things. First you need to write a config file to link a word to one or two keys. It look like this 
-```
+```ini
 jump = space
 move = w, z
 ```
@@ -69,3 +69,27 @@ EventManager::addEvent(5, [](float time){
 ```
 It will display this at every frame for 5 seconds.
 Here I use a Lambda function, but you can use what you want.
+
+#### Sound
+It also possible to add sound in you game, but like the KeyEventHandler, it need a config file.
+```ini
+path/to/your/sound/folder
+test sound.wav
+other afolder/anOtherSound.wav
+```
+The first line define a root location for your sound file. In this example, my root path is `path/to/your/sound/folder`.
+So the first file is here `path/to/your/sound/folder/sound.wav`, while the second is here `path/to/your/sound/folder/afolder/anOtherSound.wav`. The first word of each line is the key to reach the sound in the code and play it. (example a few line later)
+
+You also need to initialize the SoundManager, you can do that, this way :
+```cpp
+Sound::init("yourFile");
+```
+
+Now you can play sound. To do this, it's simple just call the `play` or `playInfinite` function, with the key of your sound in parameter.
+Example :
+```cpp
+SoundManager::play("test"); // play test once with default volume
+SoundManager::play("test", 2); // play test twice with default volume
+SoundManager::play("test", 2, 0.2); // play test twice with volume at 20% of maximum
+// It will play the sound.wav file
+```

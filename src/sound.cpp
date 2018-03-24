@@ -44,7 +44,7 @@ namespace JamEngine{
 		Mix_CloseAudio();
 
 	}
-	void Sound::play(std::string &&son) {
+	void Sound::play(std::string &&son, float volume, int numberLoop) {
 		int i;
 		for (i = 0; i<sound.chanelUsed;i++) { //just right
 			if (Mix_Playing(i))
@@ -56,11 +56,18 @@ namespace JamEngine{
 			sound.chanelUsed++;
 		}
 
-
+		if(volume){
+			volume = (int)(volume * MIX_MAX_VOLUME);
+		}else{
+			volume = Sound::volume;
+		}
 		Mix_Volume(i, volume);
-		Mix_PlayChannel(i,sound.sons[std::move(son)], 0);
+		Mix_PlayChannel(i,sound.sons[std::move(son)], numberLoop);
 
+	}
 
+	void Sound::playInfinite(std::string &&son, float volume) {
+		play(son.c_str(), volume, -1);
 	}
 
 
