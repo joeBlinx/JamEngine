@@ -27,8 +27,8 @@ namespace JamEngine {
 
 		// Overridable gameplay methods
 		Entity(glm::vec2 const & pos);
-		virtual void collide(Entity &other) = 0;
-		virtual void update() = 0;
+		virtual void collide(Entity &other) ;
+		virtual void update() ;
 
 		// Display
 		void setSpriteSheet(std::string const & name, float timeChange);

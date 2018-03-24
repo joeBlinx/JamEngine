@@ -54,4 +54,8 @@ namespace JamEngine{
 	const glm::vec2 &Entity::getPos() const {
 		return pos;
 	}
+
+	void Entity::update() {
+
+	}
 }

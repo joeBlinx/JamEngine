@@ -12,7 +12,7 @@
 namespace JamEngine {
 	class Sound {
 
-		std::map<std::string,Mix_Chunk *> sons;
+		std::map<std::string, Mix_Chunk *> sons;
 		int chanelUsed = 0;
 		static int volume ;
 		static bool pause ;
