@@ -3,7 +3,7 @@
 //
 
 #include <fstream>
-#include "stringUtil.h"
+#include <utils/stringUtil.h>
 #include <vector>
 
 #include <iostream>
@@ -34,7 +34,7 @@ namespace JamEngine {
 			{"tab",         SDLK_TAB},
 			{"left_alt",    SDLK_LALT},
 			{"right_alt",   SDLK_RALT},
-			{"enter",       SDLK_KP_ENTER}
+			{"enter",       SDLK_RETURN}
 	};
 
 	void assign(int & value, std::string strValue){

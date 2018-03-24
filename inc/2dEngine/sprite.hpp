@@ -16,9 +16,9 @@ namespace JamEngine {
 	class Sprite {
 
 		SpriteSheet * spriteSheet = nullptr ;
-		int nbImage = 0;
 		float timeChange = 0;
 		float currentTime = 0;
+		int nbImage = 0;
 	public:
 		Sprite() = default;
 		Sprite(SpriteSheet *spriteSheet, float timeChange, int nbImage = 0);

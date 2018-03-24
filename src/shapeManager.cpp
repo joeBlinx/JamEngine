@@ -36,4 +36,16 @@ namespace JamEngine{
 	ShapeManager::~ShapeManager() {
 		delete shapeManager.vao;
 	}
+
+	int ShapeManager::get(std::string &&key) {
+		return shapeManager.keys[std::move(key)];
+	}
+
+	Shape const &ShapeManager::get(int id) {
+		return shapeManager.ids[id];
+	}
+
+	void ShapeManager::addShape(std::string &&key, Shape &&shape) {
+		shapeManager.add(std::move(key), std::move(shape));
+	}
 }

@@ -28,7 +28,7 @@ namespace JamEngine {
 			entity->update();
 		}
 		destroyEntities();
-		removeWhithoutDestorying();
+		removeWithoutDestorying();
 	}
 	void Scene::checkCollision() {
 		if(entities.empty()){
@@ -46,7 +46,7 @@ namespace JamEngine {
 		}
 	}
 	void Scene::add(Entity *entity) {
-		int i ;
+		size_t i ;
 		for(i = 0; i  < layers.size(); i++){
 			if(layers[i] == entity->getLayer()){
 				break;
@@ -55,7 +55,7 @@ namespace JamEngine {
 		entity->setPriority(i);
 		entities.insert(entity);
 	}
-	std::multiset<Entity *, compare > const &Scene::getEntity() {
+	std::multiset<Entity *, compare > const &Scene::getEntities() {
 		return entities;
 	}
 
@@ -93,7 +93,7 @@ namespace JamEngine {
 
 	}
 
-	void Scene::removeWhithoutDestorying() {
+	void Scene::removeWithoutDestorying() {
 		for(auto ent : removeEntities){
 			auto it = entities.begin();
 			for(;it != entities.end();it++ ){

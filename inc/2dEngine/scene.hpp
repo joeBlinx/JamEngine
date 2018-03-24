@@ -30,14 +30,14 @@ namespace JamEngine {
 		Scene&operator= (Scene const&) = delete;
 
 		void destroyEntities();
-		void removeWhithoutDestorying();
+		void removeWithoutDestorying();
 	public:
 		Scene();
 		void init(std::string && layerFile);
 		void update();
 		void checkCollision();
 		void add(Entity * entity);
-		std::multiset<Entity *, compare > const & getEntity();
+		std::multiset<Entity *, compare > const & getEntities();
 		void destroy(Entity *entity);
 		void remove(Entity *entity);
 		void clear();

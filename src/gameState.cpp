@@ -17,7 +17,7 @@ namespace JamEngine {
 			int start = SDL_GetTicks();
 			int end;
 			glClear(GL_COLOR_BUFFER_BIT);
-			EventManager::execute(0.017);
+			EventManager::execute(gameState.delta);
 			gameState.input();
 			gameState.update();
 			gameState.display();
@@ -25,8 +25,8 @@ namespace JamEngine {
 			SDL_GL_SwapWindow(window);
 			end = SDL_GetTicks();
 			int sub = end - start;
-			if (sub < 17) {
-				SDL_Delay(17 - sub);
+			if (sub < gameState.delta*1000) {
+				SDL_Delay(gameState.delta*1000- sub);
 			}
 		}
 	}

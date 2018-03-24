@@ -12,7 +12,6 @@ namespace JamEngine{
 	Entity::Entity(float posX, float posY, float sizeX, float sizeY){
 		pos = glm::vec2(posX, posY);
 		size = glm::vec2(sizeX, sizeY);
-		graphicsSize = size;
 	}
 
 	void Entity::collide([[maybe_unused]]Entity &other) {
@@ -24,10 +23,10 @@ namespace JamEngine{
 	}
 
 	void Entity::display(float delta) {
-		auto info = sprite.update(delta);
+		/*auto info = sprite.update(delta);
 		ShapeManager::getShape().bind();
 
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);*/
 	}
 
 	const std::string &Entity::getLayer() const {
@@ -51,9 +50,6 @@ namespace JamEngine{
 	Entity::Entity(glm::vec2 const &pos):pos(pos) {
 	}
 
-	void Entity::displayDebug(float delta) {
-
-	}
 
 	const glm::vec2 &Entity::getPos() const {
 		return pos;

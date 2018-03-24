@@ -3,7 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include "spriteSheetManager.hpp"
-#include "stringUtil.h"
+#include <utils/stringUtil.h>
 namespace JamEngine{
 	SpriteSheetManager SpriteSheetManager::spriteSheetManager;
 

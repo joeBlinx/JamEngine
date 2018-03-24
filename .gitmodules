@@ -1,0 +1,6 @@
+[submodule "glish"]
+	path = glish
+	url = git@gitlab.com:stivenAigle/glish.git
+[submodule "utils"]
+	path = utils
+	url = git@gitlab.com:stivenAigle/utils.git

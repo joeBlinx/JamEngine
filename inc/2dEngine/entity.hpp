@@ -19,7 +19,6 @@ namespace JamEngine {
 		glm::vec2 pos{0, 0};
 		// Size of the entity
 		glm::vec2 size{1, 1};
-		glm::vec2 graphicsSize;
 		float angle = 0;
 
 	public:
@@ -34,8 +33,7 @@ namespace JamEngine {
 		// Display
 		void setSpriteSheet(std::string const & name, float timeChange);
 		virtual void display(float delta);
-		void displayDebug(float delta);
-
+		//TODO: add debug
 		// Getters
 		const std::string &getLayer() const;
 		const glm::vec2 &getPos() const;
