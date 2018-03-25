@@ -1,5 +1,5 @@
 # JamEngine
-2dEngine created for personal use in Game Jam. It is written in C++ 17 and use OpenGL API. (actually in development)
+2dEngine created for personal use in Game Jam. It is written in C++ 17 and use OpenGL API. (Work in Progress)
 
 It works on Linux and Windows.
 
@@ -121,3 +121,16 @@ test/
 example example.png 4 3
 ```
 
+Now you have to tell to the SpriteSheetManager where is your config file, just do this 
+```cpp
+SpriteSheetManager::init("yourfile");
+```
+
+And now you can add your spriteSheet to an Entity 
+```cpp
+Entity ent;
+ent.setSpriteSheet("key", 5);
+// key is the key of your spriteSheet
+// 5 is the number of second before the engine change the image, put 0 to disable the change
+// You can do that directly in your Entity 
+```
