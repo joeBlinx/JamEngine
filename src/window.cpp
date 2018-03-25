@@ -22,11 +22,8 @@ namespace JamEngine {
         }
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, settings.majorVersion);
 
-        glish::getError();
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, settings.minorVersion);
-        glish::getError();
         SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, settings.doubleBuffer);
-        glish::getError();
 
         m_window = SDL_CreateWindow(settings.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, settings.width, settings.height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 

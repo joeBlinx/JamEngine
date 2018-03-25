@@ -97,7 +97,7 @@ namespace JamEngine{
 		std::string key, path;
 
 		while(file >> key >> path){
-			sound.sons.emplace(std::pair{key, Mix_LoadWAV((sound.folder +"/"+ path).c_str())});
+			sound.sons.emplace(std::pair<std::string,  Mix_Chunk *> {key, Mix_LoadWAV((sound.folder +"/"+ path).c_str())});
 		}
 
 

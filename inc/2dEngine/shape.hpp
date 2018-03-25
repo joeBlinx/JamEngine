@@ -13,9 +13,10 @@ namespace JamEngine {
 
 		Shape(Shape const &) = delete;
 		Shape&operator=(Shape const &) = delete;
+	public:
 		Shape(Shape &&) = default;
 		Shape&operator=(Shape &&) = default;
-	public:
+
 		void bind() const;
 
 		void setShape(std::vector<glm::vec2> const &vertices);
