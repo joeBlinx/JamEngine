@@ -18,7 +18,7 @@ It use C++ 17 so you need a compatible compiler, g++-7 or MSVC 17 is fine.
 ## How it works 
 All the code is wrap into the namespace JamEngine.
 #### Scene
-This class in a Singleton. You'll have very few interactions with this. You have only 4 methods that you will use :
+This class is a Singleton. You'll have very few interactions with this. You have only 4 methods that you will use :
 * *add* : add an Entity
 * *remove* : remove Entity without destroying it
 * *delete* : remove and destroy Entity
@@ -87,6 +87,7 @@ Sound::init("yourFile");
 ```
 
 Now you can play sound. To do this, it's simple just call the `play` or `playInfinite` function, with the key of your sound in parameter.
+
 Example :
 ```cpp
 SoundManager::play("test"); // play test once with default volume
@@ -94,3 +95,29 @@ SoundManager::play("test", 2); // play test twice with default volume
 SoundManager::play("test", 2, 0.2); // play test twice with volume at 20% of maximum
 // It will play the sound.wav file
 ```
+
+#### Sprite
+You can also use SpriteSheet to add animation to your Entity, it can also be just one image. 
+
+As always you will have a config file. It look like this 
+```ini
+path/to/folder/
+test test.png 1 1
+```
+
+First line, like for the sound manager, it is the path for the root directory of your sprite sheets.
+When you declare a sprite sheet, you need to write 4 things : 
+* the key to access your sprite sheet within the code
+* the relative path of your file 
+* the number of image horizontally
+* the number of image vertically
+
+Example :
+
+![alt text](test/example.png "Logo Example")
+
+```ini
+test/
+example example.png 4 3
+```
+
