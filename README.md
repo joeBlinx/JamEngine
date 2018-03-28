@@ -40,6 +40,8 @@ Base class of all object in your game. You have to inherited from this class and
 * *collide* : define collision type and what to do when collision occur
 * *display* : define how it will be display
 
+Don't forget to call the based function.
+
 To add your Entity to the Scene you need to use the `add` function of `Scene` :
 ```cpp
 Entity a;

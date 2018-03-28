@@ -34,7 +34,7 @@ namespace JamEngine {
 	public:
 		Scene();
 		void init(std::string && layerFile);
-		void update();
+		void update(float delta);
 		void checkCollision();
 		void add(Entity * entity);
 		std::multiset<Entity *, compare > const & getEntities();

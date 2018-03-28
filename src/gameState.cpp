@@ -55,7 +55,7 @@ namespace JamEngine {
 	}
 
 	void GameState::update() {
-		scene.update();
+		scene.update(0);
 
 	}
 

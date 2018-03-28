@@ -38,6 +38,7 @@ namespace JamEngine{
 		static bool alreadyDefine = false;
 		if(alreadyDefine){
 			std::cerr << "priority is already define" << std::endl;
+			return;
 		}
 		priority = newPriority;
 
@@ -55,7 +56,9 @@ namespace JamEngine{
 		return pos;
 	}
 
-	void Entity::update() {
-
+	void Entity::update(float delta) {
+		if(sprite){
+			sprite.update(delta);
+		}
 	}
 }

@@ -12,10 +12,9 @@ namespace JamEngine{
 
 	}
 
-	info Sprite::update(float delta) {
-		info info{};
-		info.size = spriteSheet->getSize();
-		info.orig = spriteSheet->getOrig(nbImage);
+	void Sprite::update(float delta) {
+		infoSprite.size = spriteSheet->getSize();
+		infoSprite.orig = spriteSheet->getOrig(nbImage);
 
 		currentTime += delta;
 
@@ -28,6 +27,10 @@ namespace JamEngine{
 		}
 		spriteSheet->bindTexture(0);
 
-		return info;
+
+	}
+
+	const info &Sprite::getInfoSprite() const {
+		return infoSprite;
 	}
 }

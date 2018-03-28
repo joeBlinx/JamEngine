@@ -22,10 +22,10 @@ namespace JamEngine {
 		}
 	}
 
-	void Scene::update() {
+	void Scene::update(float delta) {
 		checkCollision();
 		for(auto & entity : entities){
-			entity->update();
+			entity->update(delta);
 		}
 		destroyEntities();
 		removeWithoutDestorying();
