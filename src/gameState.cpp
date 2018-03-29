@@ -8,6 +8,7 @@
 #include <2dEngine/eventManager.hpp>
 #include "gameState.hpp"
 #include "scene.hpp"
+
 namespace JamEngine {
 	GameState GameState::gameState;
 
@@ -60,7 +61,9 @@ namespace JamEngine {
 	}
 
 	void GameState::display() {
-
+		for(auto &ent : scene.getEntities()){
+			ent->display(0);
+		}
 	}
 
 	void GameState::gameOver() {

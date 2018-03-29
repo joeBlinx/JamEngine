@@ -5,6 +5,7 @@
 #include <iostream>
 #include <2dEngine/spriteSheetManager.hpp>
 #include <2dEngine/shapeManager.hpp>
+#include <2dEngine/progShader/programManager.hpp>
 #include "entity.hpp"
 
 namespace JamEngine{
@@ -23,10 +24,18 @@ namespace JamEngine{
 	}
 
 	void Entity::display(float delta) {
-		/*auto info = sprite.update(delta);
-		ShapeManager::getShape().bind();
 
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);*/
+		auto info = sprite.getInfoSprite();
+		ShapeManager::get(0).bind();
+		ProgramManager::get(0).use();
+		transformStorage transformStorage1;
+		transformStorage1.tran = pos;
+		transformStorage1.scale = size;
+		transformStorage1.angle = angle;
+		ProgramManager::get(0).update("transform", transform(transformStorage1),
+										"scale", normalizedScreenSpace(1360, 768));
+
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	}
 
 	const std::string &Entity::getLayer() const {

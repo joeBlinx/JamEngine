@@ -19,4 +19,12 @@ namespace JamEngine{
 	void Shape::setIndices(const std::vector<int> &indices) {
 		vao.addIndices(indices);
 	}
+
+	void Shape::addVertex(glm::vec2 const &vertex) {
+		vertices.push_back(vertex);
+	}
+
+	void Shape::addUv(glm::vec2 const &uv) {
+		uvs.push_back(uv);
+	}
 }

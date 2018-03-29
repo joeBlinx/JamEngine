@@ -11,9 +11,13 @@ namespace JamEngine {
 	class Shape {
 		glish::Vao<2> vao;
 
+		std::vector<glm::vec2> vertices;
+		std::vector<glm::vec2> uvs;
+
 		Shape(Shape const &) = delete;
 		Shape&operator=(Shape const &) = delete;
 	public:
+		Shape() = default;
 		Shape(Shape &&) = default;
 		Shape&operator=(Shape &&) = default;
 
@@ -24,6 +28,10 @@ namespace JamEngine {
 		void setUv(const std::vector<glm::vec2> &uvs);
 
 		void setIndices(const std::vector<int> &indices);
+
+		void addVertex(glm::vec2 const & vertex);
+
+		void addUv(glm::vec2 const & uv);
 
 	};
 }

@@ -11,8 +11,8 @@ namespace JamEngine {
 	class Entity {
 		Sprite sprite;
 		int priority = 0;
-
-
+		int program = 0;
+		int shape = 0;
 	protected:
 		// Position of the center of the entity
 		std::string layer = "default";
