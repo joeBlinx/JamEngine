@@ -43,8 +43,12 @@ namespace JamEngine {
 	    glGetError();
 	    glClearColor(0.5, 0.5, 0.5, 1);
 	    glGetError();
+		glEnable (GL_BLEND);
+		glGetError();
+		glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glGetError();
 
-    }
+	}
 
     SDL_Window *Window::getWindow() {
         return m_window;

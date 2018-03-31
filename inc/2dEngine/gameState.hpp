@@ -25,6 +25,7 @@ namespace JamEngine {
 		GameState() = default;
 		static void loop(SDL_Window *window);
 		static void gameOver();
+		static float deltaTime();
 
 	};
 

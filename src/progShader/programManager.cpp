@@ -46,6 +46,7 @@ namespace JamEngine{
 		defaultProg.add<glm::mat3>("transform");
 		defaultProg.add<glm::mat3>("scale");
 		defaultProg.add<int>("texture2D");
+		defaultProg.add<bool>("hasTexture");
 
 		programManager.addProgram("default", std::move(defaultProg));
 	}

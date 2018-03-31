@@ -17,7 +17,6 @@ namespace JamEngine{
 		infoSprite.orig = spriteSheet->getOrig(nbImage);
 
 		currentTime += delta;
-
 		if( currentTime > timeChange && timeChange){
 			nbImage++;
 			currentTime = 0;

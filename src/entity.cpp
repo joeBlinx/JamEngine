@@ -33,7 +33,12 @@ namespace JamEngine{
 		transformStorage1.scale = size;
 		transformStorage1.angle = angle;
 		ProgramManager::get(0).update("transform", transform(transformStorage1),
-										"scale", normalizedScreenSpace(1360, 768));
+										"scale", normalizedScreenSpace(1366, 768),
+		"hasTexture", (bool)sprite);
+		if(sprite){
+			ProgramManager::get(0).update("orig", info.orig,
+											"textureSize", info.size);
+		}
 
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	}
