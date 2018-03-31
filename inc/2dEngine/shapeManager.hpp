@@ -17,13 +17,15 @@ namespace JamEngine {
 
 		static ShapeManager shapeManager;
 		ShapeManager();
+		int lastId = -1;
 	public:
 
 		static int get(std::string&& key);
-		static Shape const & get(int id);
 		static int addShape(std::string &&key, Shape &&shape);
 
 		static void init();
+		static void use(int id);
+		static void quit();
 		~ShapeManager();
 
 	};

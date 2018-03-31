@@ -40,4 +40,8 @@ namespace JamEngine{
 		return nullptr;
 
 	}
+
+	void SpriteSheetManager::quit() {
+		spriteSheetManager.spriteSheets.clear();
+	}
 }

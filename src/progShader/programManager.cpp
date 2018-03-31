@@ -28,10 +28,6 @@ namespace JamEngine{
 		return programManager.keys[std::move(key)];
 	}
 
-	glish::UniContainer &ProgramManager::get(int id) {
-		return programManager.ids[id];
-	}
-
 	int ProgramManager::addProgram(std::string &&key, glish::UniContainer &&program) {
 		return programManager.add(std::move(key), std::move(program));
 	}
@@ -49,5 +45,17 @@ namespace JamEngine{
 		defaultProg.add<bool>("hasTexture");
 
 		programManager.addProgram("default", std::move(defaultProg));
+	}
+
+	void ProgramManager::quit() {
+		programManager.clear();
+
+	}
+
+	void ProgramManager::use(int id) {
+		if(id != programManager.lastProg) {
+			programManager[id].use();
+			programManager.lastProg = id;
+		}
 	}
 }

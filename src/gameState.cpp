@@ -14,7 +14,7 @@ namespace JamEngine {
 
 	void GameState::loop(SDL_Window *window) {
 		while(!gameState.endGame) {
-
+			glClear(GL_COLOR_BUFFER_BIT);
 			int start = SDL_GetTicks();
 			int end;
 
@@ -61,9 +61,17 @@ namespace JamEngine {
 	}
 
 	void GameState::display() {
-		glClear(GL_COLOR_BUFFER_BIT);
 		for(auto &ent : scene.getEntities()){
 			ent->display(0);
+		}
+		if(debugMode){
+			debug();
+		}
+	}
+
+	void GameState::debug() {
+		for(auto &ent : scene.getEntities()){
+			ent->debug();
 		}
 	}
 
@@ -73,5 +81,9 @@ namespace JamEngine {
 
 	float GameState::deltaTime() {
 		return gameState.delta;
+	}
+
+	void GameState::enableDebug() {
+		gameState.debugMode = true;
 	}
 }

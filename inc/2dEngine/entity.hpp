@@ -33,6 +33,7 @@ namespace JamEngine {
 		// Display
 		void setSpriteSheet(std::string const & name, float timeChange);
 		virtual void display(float delta);
+		void debug();
 		//TODO: add debug
 		// Getters
 		const std::string &getLayer() const;

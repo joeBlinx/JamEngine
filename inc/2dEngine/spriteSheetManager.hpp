@@ -18,6 +18,7 @@ namespace JamEngine {
 
 		static void init(std::string && initFile);
 		static SpriteSheet * get(std::string const &key);
+		static void quit();
 
 	};
 }

@@ -11,6 +11,7 @@ namespace JamEngine {
 		static GameState gameState;
 		bool endGame = false;
 		float delta = 0.017f;
+		bool debugMode = false;
 
 		GameState(GameState&&) = delete;
 		GameState(GameState const &) = delete;
@@ -19,13 +20,15 @@ namespace JamEngine {
 
 		void input();
 		void update();
-
+		void debug();
 		void display();
 	public:
 		GameState() = default;
+
 		static void loop(SDL_Window *window);
 		static void gameOver();
 		static float deltaTime();
+		static void enableDebug();
 
 	};
 

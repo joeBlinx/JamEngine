@@ -7,10 +7,16 @@
 #include <windowSettings.hpp>
 #include <GL/glew.h>
 #include <glish/utils//log.hpp>
+#include <2dEngine/shapeManager.hpp>
+#include <2dEngine/progShader/programManager.hpp>
+#include <2dEngine/spriteSheetManager.hpp>
 
 
 namespace JamEngine {
     Window::~Window() {
+    	ShapeManager::quit();
+    	ProgramManager::quit();
+    	SpriteSheetManager::quit();
         SDL_GL_DeleteContext(m_context);
         SDL_DestroyWindow(m_window);
         SDL_Quit();
@@ -48,6 +54,8 @@ namespace JamEngine {
 		glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glGetError();
 
+		ShapeManager::init();
+		ProgramManager::init();
 	}
 
     SDL_Window *Window::getWindow() {

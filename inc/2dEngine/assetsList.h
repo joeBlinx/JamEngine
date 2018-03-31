@@ -22,7 +22,9 @@ protected:
 
 public:
 
-	T const &operator[](int i);
+	T const &operator[](int i) const;
+
+	T& operator[](int i);
 
 	decltype(auto) begin();
 
@@ -44,7 +46,7 @@ public:
 		return thisId;
 	}
 
-	void empty() {
+	void clear() {
 		ids.clear();
 		keys.clear();
 	}
@@ -54,7 +56,11 @@ public:
 
 
 template<class T>
-T const &AssetsList<T>::operator[](int i) {
+T const &AssetsList<T>::operator[](int i)const {
+	return ids[i];
+}
+template <class T>
+T& AssetsList<T>::operator[](int i) {
 	return ids[i];
 }
 

@@ -26,21 +26,35 @@ namespace JamEngine{
 	void Entity::display(float delta) {
 
 		auto info = sprite.getInfoSprite();
-		ShapeManager::get(0).bind();
-		ProgramManager::get(0).use();
+		ShapeManager::use(0);
+		ProgramManager::use(0);
 		transformStorage transformStorage1;
 		transformStorage1.tran = pos;
 		transformStorage1.scale = size;
 		transformStorage1.angle = angle;
-		ProgramManager::get(0).update("transform", transform(transformStorage1),
+		ProgramManager::update(0, "transform", transform(transformStorage1),
 										"scale", normalizedScreenSpace(1366, 768),
 		"hasTexture", (bool)sprite);
 		if(sprite){
-			ProgramManager::get(0).update("orig", info.orig,
+			ProgramManager::update(0, "orig", info.orig,
 											"textureSize", info.size);
 		}
 
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	}
+
+	void Entity::debug() {
+		ShapeManager::use(1);
+		ProgramManager::use(0);
+		transformStorage transformStorage1;
+		transformStorage1.tran = pos;
+		transformStorage1.scale = size;
+		transformStorage1.angle = angle;
+		ProgramManager::update(0, "transform", transform(transformStorage1),
+									  "scale", normalizedScreenSpace(1366, 768),
+									  "hasTexture", false);
+		glDrawArrays(GL_LINE_STRIP, 0, 5);
+
 	}
 
 	const std::string &Entity::getLayer() const {
@@ -62,9 +76,9 @@ namespace JamEngine{
 		return priority;
 	}
 
+
 	Entity::Entity(glm::vec2 const &pos):pos(pos) {
 	}
-
 
 	const glm::vec2 &Entity::getPos() const {
 		return pos;
