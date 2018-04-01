@@ -22,7 +22,7 @@ namespace JamEngine {
         SDL_Quit();
     }
 
-    Window::Window(windowSettings const & settings) {
+    Window::Window(windowSettings const & settings):settings(settings) {
         if (SDL_Init(SDL_INIT_EVERYTHING)) {
             throw std::runtime_error("error while initialize SDL2 " + std::string{SDL_GetError()});
         }
@@ -62,7 +62,9 @@ namespace JamEngine {
         return m_window;
     }
 
-
+	const windowSettings &Window::getSettings() const {
+		return settings;
+	}
 
 
 }

@@ -6,12 +6,15 @@
 #define INC_2DENGINE_GAMESTATE_HPP
 
 namespace JamEngine {
+	struct Window;
 	class GameState {
 
 		static GameState gameState;
 		bool endGame = false;
 		float delta = 0.017f;
 		bool debugMode = false;
+		int const *  width = nullptr;
+		int const *  height = nullptr;
 
 		GameState(GameState&&) = delete;
 		GameState(GameState const &) = delete;
@@ -25,10 +28,12 @@ namespace JamEngine {
 	public:
 		GameState() = default;
 
-		static void loop(SDL_Window *window);
+		static void loop(Window &window);
 		static void gameOver();
 		static float deltaTime();
 		static void enableDebug();
+		static int windowWidth();
+		static int windowHeight();
 
 	};
 

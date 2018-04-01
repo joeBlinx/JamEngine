@@ -13,7 +13,7 @@ namespace JamEngine {
 
     struct Window {
 
-        Window(windowSettings const &setting);
+        explicit Window (windowSettings const &setting);
 
         SDL_Window *getWindow();
 
@@ -25,11 +25,14 @@ namespace JamEngine {
 
         Window operator=(Window const &) = delete;
 
+        const windowSettings &getSettings() const;
+
         ~Window();
 
     private:
         SDL_Window *m_window;
         SDL_GLContext m_context;
+        windowSettings const & settings;
 
     };
 

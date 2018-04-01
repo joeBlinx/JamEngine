@@ -6,13 +6,17 @@
 #include <SDL2/SDL.h>
 #include <2dEngine/keyEventHandler.hpp>
 #include <2dEngine/eventManager.hpp>
+#include <2dEngine/window.hpp>
+#include <2dEngine/windowSettings.hpp>
 #include "gameState.hpp"
 #include "scene.hpp"
 
 namespace JamEngine {
 	GameState GameState::gameState;
 
-	void GameState::loop(SDL_Window *window) {
+	void GameState::loop(Window &window) {
+		gameState.width = &(window.getSettings().width);
+		gameState.height = &(window.getSettings().height);
 		while(!gameState.endGame) {
 			glClear(GL_COLOR_BUFFER_BIT);
 			int start = SDL_GetTicks();
@@ -85,5 +89,13 @@ namespace JamEngine {
 
 	void GameState::enableDebug() {
 		gameState.debugMode = true;
+	}
+
+	int GameState::windowWidth() {
+		return *gameState.width;
+	}
+
+	int GameState::windowHeight() {
+		return *gameState.height;
 	}
 }

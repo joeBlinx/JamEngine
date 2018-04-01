@@ -6,6 +6,7 @@
 #include <2dEngine/spriteSheetManager.hpp>
 #include <2dEngine/shapeManager.hpp>
 #include <2dEngine/progShader/programManager.hpp>
+#include <2dEngine/gameState.hpp>
 #include "entity.hpp"
 
 namespace JamEngine{
@@ -33,7 +34,7 @@ namespace JamEngine{
 		transformStorage1.scale = size;
 		transformStorage1.angle = angle;
 		ProgramManager::update(0, "transform", transform(transformStorage1),
-										"scale", normalizedScreenSpace(1366, 768),
+										"scale", normalizedScreenSpace(GameState::windowWidth(), GameState::windowHeight()),
 		"hasTexture", (bool)sprite);
 		if(sprite){
 			ProgramManager::update(0, "orig", info.orig,
@@ -51,7 +52,7 @@ namespace JamEngine{
 		transformStorage1.scale = size;
 		transformStorage1.angle = angle;
 		ProgramManager::update(0, "transform", transform(transformStorage1),
-									  "scale", normalizedScreenSpace(1366, 768),
+									  "scale", normalizedScreenSpace(GameState::windowWidth(), GameState::windowHeight()),
 									  "hasTexture", false);
 		glDrawArrays(GL_LINE_STRIP, 0, 5);
 
