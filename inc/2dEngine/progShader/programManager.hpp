@@ -30,15 +30,16 @@ namespace JamEngine {
 	class ProgramManager  : public AssetsList<glish::UniContainer>{
 		static ProgramManager programManager;
 		int lastProg = -1;
+		static void use(int id);
 	public:
 		static int get(std::string && key);
 		static int addProgram(std::string && key ,glish::UniContainer && program);
-		static void use(int id);
 
 		static void init();
 		static void quit();
 		template <class ...Ts>
 				static void update(int i, Ts &&...  args){
+			use(i);
 			programManager[i].update(std::forward<Ts>(args)...);
 		}
 

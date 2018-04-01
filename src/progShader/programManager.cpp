@@ -45,6 +45,16 @@ namespace JamEngine{
 		defaultProg.add<bool>("hasTexture");
 
 		programManager.addProgram("default", std::move(defaultProg));
+
+		glish::UniContainer debugProg{
+				glish::shaderFile{GL_VERTEX_SHADER, "shader/basic/vertDebug.glsl"},
+				glish::shaderFile{GL_FRAGMENT_SHADER, "shader/basic/fragDebug.glsl"}
+		};
+		debugProg.add<glm::mat3>("transform");
+		debugProg.add<glm::mat3>("scale");
+		debugProg.add<bool>("isSquare");
+		debugProg.add<float>("diameter");
+		programManager.addProgram("debug", std::move(debugProg));
 	}
 
 	void ProgramManager::quit() {

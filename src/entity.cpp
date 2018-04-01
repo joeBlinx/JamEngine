@@ -16,9 +16,6 @@ namespace JamEngine{
 		size = glm::vec2(sizeX, sizeY);
 	}
 
-	void Entity::collide([[maybe_unused]]Entity &other) {
-
-	}
 
 	void Entity::setSpriteSheet(std::string const &name, float timeChange) {
 		sprite = Sprite(SpriteSheetManager::get(name), timeChange);
@@ -28,7 +25,6 @@ namespace JamEngine{
 
 		auto info = sprite.getInfoSprite();
 		ShapeManager::use(0);
-		ProgramManager::use(0);
 		transformStorage transformStorage1;
 		transformStorage1.tran = pos;
 		transformStorage1.scale = size;
@@ -44,17 +40,27 @@ namespace JamEngine{
 		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	}
 
+
 	void Entity::debug() {
-		ShapeManager::use(1);
-		ProgramManager::use(0);
 		transformStorage transformStorage1;
 		transformStorage1.tran = pos;
 		transformStorage1.scale = size;
 		transformStorage1.angle = angle;
-		ProgramManager::update(0, "transform", transform(transformStorage1),
-									  "scale", normalizedScreenSpace(GameState::windowWidth(), GameState::windowHeight()),
-									  "hasTexture", false);
-		glDrawArrays(GL_LINE_STRIP, 0, 5);
+		ProgramManager::update(1, "scale", normalizedScreenSpace(GameState::windowWidth(), GameState::windowHeight()));
+
+		ShapeManager::use(0);
+		for(auto &sphereCollider : sphereColliders){
+			transformStorage1.tran = sphereCollider.getReference();
+			transformStorage1.scale = glm::vec2(sphereCollider.getDiameter());
+			ProgramManager::update(1, "isSquare", false,
+			                       "transform", transform(transformStorage1),
+			                       "diameter", sphereCollider.getDiameter()
+			);
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+
+		}
+		//TODO: for square
+		//glDrawArrays(GL_LINE_STRIP, 0, 5);
 
 	}
 
@@ -88,6 +94,33 @@ namespace JamEngine{
 	void Entity::update(float delta) {
 		if(sprite){
 			sprite.update(delta);
+		}
+	}
+
+	void Entity::addSphereCollider(glm::vec2 center, float radius, Collider::collideFunction function) {
+		center.x += pos.x;
+		center.y += pos.y;
+		SphereCollider collider{this, center, radius};
+		collider.onCollideEvent(std::move(function));
+		sphereColliders.emplace_back(std::move(collider));
+	}
+
+	void Entity::collide(Entity *other) {
+		for (auto &collider : sphereColliders){
+			for (auto &otherCollider : other->sphereColliders){
+				collider.collide(otherCollider);
+			}
+		}
+	}
+
+	void Entity::move(float x, float y) {
+		move(glm::vec2{x , y});
+	}
+
+	void Entity::move(glm::vec2 const &deplacment) {
+		pos += deplacment;
+		for(auto & collider: sphereColliders){
+			collider.move(deplacment);
 		}
 	}
 }

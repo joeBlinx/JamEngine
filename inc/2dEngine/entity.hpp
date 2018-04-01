@@ -6,6 +6,7 @@
 #define INC_2DENGINE_ENTITY_HPP
 
 #include <2dEngine/sprite.hpp>
+#include <2dEngine/collider/sphereCollider.hpp>
 
 namespace JamEngine {
 	class Entity {
@@ -13,6 +14,7 @@ namespace JamEngine {
 		int priority = 0;
 		int program = 0;
 		int shape = 0;
+		std::vector<SphereCollider> sphereColliders;
 	protected:
 		// Position of the center of the entity
 		std::string layer = "default";
@@ -27,9 +29,9 @@ namespace JamEngine {
 
 		// Overridable gameplay methods
 		Entity(glm::vec2 const & pos);
-		virtual void collide(Entity &other) ;
 		virtual void update(float delta);
 
+		void collide(Entity * other);
 		// Display
 		void setSpriteSheet(std::string const & name, float timeChange);
 		virtual void display(float delta);
@@ -39,6 +41,11 @@ namespace JamEngine {
 		const std::string &getLayer() const;
 		const glm::vec2 &getPos() const;
 
+		void move(float x, float y);
+		void move(glm::vec2 const & deplacment);
+
+		void addSphereCollider(glm::vec2 center, float radius,
+		                       Collider::collideFunction function = Collider::collideFunction{});
 		void setPriority(int newPriority);
 
 		int getPriority() const;

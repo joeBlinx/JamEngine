@@ -31,17 +31,12 @@ namespace JamEngine {
 		removeWithoutDestorying();
 	}
 	void Scene::checkCollision() {
-		if(entities.empty()){
-			return;
-		}
 		auto end = entities.end();
-		for(auto i = entities.begin() ; i != end ; i++) {
-			auto j = i;
+		for(auto it = entities.begin(); it != end ; it++){
+			auto j = it;
 			j++;
-			for (j = entities.begin(); j != entities.end(); j++) {
-				if(j != i) {
-					(*i)->collide(**j);
-				}
+			for(j ; j != end ;j++ ){
+				(*it)->collide(*j);
 			}
 		}
 	}
