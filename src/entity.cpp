@@ -8,6 +8,8 @@
 #include <2dEngine/progShader/programManager.hpp>
 #include <2dEngine/gameState.hpp>
 #include "entity.hpp"
+#include "collider/squareCollider.hpp"
+#include <2dEngine/collider/collider.hpp>
 
 namespace JamEngine{
 
@@ -21,7 +23,7 @@ namespace JamEngine{
 		sprite = Sprite(SpriteSheetManager::get(name), timeChange);
 	}
 
-	void Entity::display(float delta) {
+	void Entity::display() {
 
 		auto info = sprite.getInfoSprite();
 		ShapeManager::use(0);
@@ -60,7 +62,17 @@ namespace JamEngine{
 
 		}
 		//TODO: for square
-		//glDrawArrays(GL_LINE_STRIP, 0, 5);
+		ShapeManager::use(1);
+		for(auto &squareCollider : squareColliders){
+			transformStorage1.tran = squareCollider.getReference();
+			transformStorage1.scale = squareCollider.getSize();
+			ProgramManager::update(1, "isSquare", true,
+			                       "transform", transform(transformStorage1, -0.5f, -0.5f)
+			);
+			glDrawArrays(GL_LINE_STRIP, 0, 5);
+
+		}
+
 
 	}
 
@@ -97,19 +109,22 @@ namespace JamEngine{
 		}
 	}
 
-	void Entity::addSphereCollider(glm::vec2 center, float radius, Collider::collideFunction function) {
-		center.x += pos.x;
-		center.y += pos.y;
-		SphereCollider collider{this, center, radius};
-		collider.onCollideEvent(std::move(function));
-		sphereColliders.emplace_back(std::move(collider));
+	template <class T, class ... Args, class U = T>
+	void forCollider(std::vector<T>& colliders, void (U::*function)(Args ...), Args && ... args){
+		for(auto & collider : colliders){
+			(collider.*function)(std::forward<Args>(args)...);
+		}
 	}
 
 	void Entity::collide(Entity *other) {
-		for (auto &collider : sphereColliders){
-			for (auto &otherCollider : other->sphereColliders){
-				collider.collide(otherCollider);
-			}
+		for (auto &otherCollider : other->sphereColliders){
+			forCollider(sphereColliders, &SphereCollider::collide, otherCollider);
+			forCollider(squareColliders, &SquareCollider::collide, otherCollider);
+		}
+
+		for (auto &otherCollider : other->squareColliders){
+			forCollider(sphereColliders, &SphereCollider::collide, otherCollider);
+			forCollider(squareColliders, &SquareCollider::collide, otherCollider);
 		}
 	}
 
@@ -119,8 +134,22 @@ namespace JamEngine{
 
 	void Entity::move(glm::vec2 const &deplacment) {
 		pos += deplacment;
-		for(auto & collider: sphereColliders){
-			collider.move(deplacment);
-		}
+		forCollider(sphereColliders, &Collider::move, deplacment);
+		forCollider(squareColliders, &Collider::move, deplacment);
+	}
+
+	void Entity::addSphereCollider(glm::vec2 center, float radius, Collider::collideFunction function) {
+		center.x += pos.x;
+		center.y += pos.y;
+		SphereCollider collider{this, center, radius};
+		collider.onCollideEvent(std::move(function));
+		sphereColliders.emplace_back(std::move(collider));
+	}
+
+	void Entity::addSquareCollider(glm::vec2 upperLeftCorner, glm::vec2 size, Collider::collideFunction function) {
+		upperLeftCorner += pos - size/2.0f;
+		SquareCollider collider(this, upperLeftCorner, size);
+		collider.onCollideEvent(std::move(function));
+		squareColliders.emplace_back(std::move(collider));
 	}
 }

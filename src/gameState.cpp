@@ -66,7 +66,7 @@ namespace JamEngine {
 
 	void GameState::display() {
 		for(auto &ent : scene.getEntities()){
-			ent->display(0);
+			ent->display();
 		}
 		if(debugMode){
 			debug();

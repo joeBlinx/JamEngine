@@ -3,7 +3,9 @@
 //
 
 #include "2dEngine/progShader/programManager.hpp"
+#ifdef WIN32
 #define M_PI 3.14159
+#endif
 
 namespace JamEngine{
 	ProgramManager ProgramManager::programManager;

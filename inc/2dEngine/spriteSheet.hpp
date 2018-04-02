@@ -13,9 +13,9 @@ namespace JamEngine {
 
 		int nbImage;
 		glm::vec2 size;
-		glish::Texture texture;
 		int nbImageHoriz;
 		int nbImageVert;
+		glish::Texture texture;
 
 	public:
 		SpriteSheet() = default;

@@ -20,9 +20,9 @@ namespace JamEngine{
 
 
 
-	void Collider::operator()(Collider *collider) {
+	void Collider::operator()(Collider &collider) {
 		if(onCollide) {
-			onCollide(collider->owner);
+			onCollide(collider.owner);
 		}
 	}
 
@@ -40,6 +40,11 @@ namespace JamEngine{
 
 	const glm::vec2 &Collider::getReference() const {
 		return reference;
+	}
+
+	void Collider::callCollideFunction(Collider &collider) {
+		this->operator()(collider);
+		collider(*this);
 	}
 
 

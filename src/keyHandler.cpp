@@ -74,6 +74,7 @@ namespace JamEngine {
 			if(linestr.empty()){
 				continue;
 			}
+			linestr = removeChar(linestr, '\r');
 			std::vector<std::string> splits = utils::split(linestr, '=');
 			key = removeChar(splits[0], ' ');
 			if(splits.size() < 2){

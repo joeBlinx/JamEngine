@@ -35,7 +35,7 @@ namespace JamEngine {
 		for(auto it = entities.begin(); it != end ; it++){
 			auto j = it;
 			j++;
-			for(j ; j != end ;j++ ){
+			for(; j != end ;j++ ){
 				(*it)->collide(*j);
 			}
 		}

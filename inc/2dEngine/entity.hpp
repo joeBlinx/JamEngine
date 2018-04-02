@@ -7,6 +7,7 @@
 
 #include <2dEngine/sprite.hpp>
 #include <2dEngine/collider/sphereCollider.hpp>
+#include <2dEngine/collider/squareCollider.hpp>
 
 namespace JamEngine {
 	class Entity {
@@ -15,6 +16,7 @@ namespace JamEngine {
 		int program = 0;
 		int shape = 0;
 		std::vector<SphereCollider> sphereColliders;
+		std::vector<SquareCollider> squareColliders;
 	protected:
 		// Position of the center of the entity
 		std::string layer = "default";
@@ -34,7 +36,7 @@ namespace JamEngine {
 		void collide(Entity * other);
 		// Display
 		void setSpriteSheet(std::string const & name, float timeChange);
-		virtual void display(float delta);
+		virtual void display();
 		void debug();
 		//TODO: add debug
 		// Getters
@@ -46,6 +48,9 @@ namespace JamEngine {
 
 		void addSphereCollider(glm::vec2 center, float radius,
 		                       Collider::collideFunction function = Collider::collideFunction{});
+		void addSquareCollider(glm::vec2 upperLeftCorner, glm::vec2 size,
+		                       Collider::collideFunction function = Collider::collideFunction{}
+		);
 		void setPriority(int newPriority);
 
 		int getPriority() const;

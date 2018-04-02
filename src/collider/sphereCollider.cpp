@@ -27,8 +27,7 @@ namespace JamEngine {
 	void SphereCollider::collide(SphereCollider &collider) {
 			float distance = glm::distance(getReference(), collider.getReference());
 			if(distance < diameter + collider.diameter){
-				collider(this);
-				this->operator()(&collider);
+				callCollideFunction(collider);
 			}
 	}
 }

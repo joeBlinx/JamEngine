@@ -20,7 +20,8 @@ namespace JamEngine {
 		Entity * owner = nullptr;
 		glm::vec2 reference;
 
-
+	protected:
+		void callCollideFunction(Collider & collider);
 	public:
 
 		const glm::vec2 &getReference() const;
@@ -32,7 +33,7 @@ namespace JamEngine {
 		void move(glm::vec2 const & deplac);
 
 
-		void operator()(Collider *collider);
+		void operator()(Collider &collider);
 
 		friend void collide(SquareCollider & square, SphereCollider & sphere);
 		friend void collide(SphereCollider & sphere, SquareCollider & square);
