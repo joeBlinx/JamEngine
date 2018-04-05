@@ -21,6 +21,7 @@ All the code is wrap into the namespace JamEngine.
 Warning : the folder shader must be copy in the same folder than your executable
 
 To compile your program that use JamEngine you need to link to several lib :
+
 On Windows :` 2Dengine SDL2 SDL2_mixer glish utils opengl32 glu32 glew32s  glew32`
 
 On Linux : `2Dengine SDL2 SDL2_mixer glish utils GL GLEW GLU`
