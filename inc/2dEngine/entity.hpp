@@ -17,13 +17,16 @@ namespace JamEngine {
 		int shape = 0;
 		std::vector<SphereCollider> sphereColliders;
 		std::vector<SquareCollider> squareColliders;
-	protected:
-		// Position of the center of the entity
-		std::string layer = "default";
 		glm::vec2 pos{0, 0};
 		// Size of the entity
 		glm::vec2 size{1, 1};
+		// Position of the center of the entity
+		std::string layer = "default";
+		bool layerDefine = false;
 		float angle = 0;
+
+	protected:
+		void setLayer(std::string && newLayer);
 
 	public:
 		Entity() = default;
@@ -55,7 +58,7 @@ namespace JamEngine {
 
 		int getPriority() const;
 
-		virtual ~Entity() = default;
+		virtual ~Entity() = 0;
 
 
 	};

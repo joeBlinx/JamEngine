@@ -56,6 +56,82 @@ To add your Entity to the Scene you need to use the `add` function of `Scene` :
 Entity a;
 Scene::add(&a);
 ```
+
+#### Layer
+Layers are useful to define if your object has to be display in front of an other object. There is a default layer define with the "default" key. It will always be the background. To define layers, you must fill a config file like this :
+
+```ini
+backgroud
+firstlayer
+secondLayer
+foreground
+```
+
+Now you have to tell the scene that you want to use that config file.
+
+```cpp
+Scene::init("configFile");
+```
+
+To tell that your Entity have to use that layer, you have to use the function
+`setLayer` in a derived class.
+
+```cpp
+struct Foo : Entity{
+    Foo(){
+        setLayer("firstLayer");
+    }
+}
+```
+Notice that as soon as you have added your Entity to your scene, the layer is locked.
+#### Sprite
+You can also use SpriteSheet to add animation to your Entity, it can also be just one image.
+
+As always you will have a config file. It look like this
+```ini
+path/to/folder/
+test test.png 1 1
+```
+
+First line, like for the sound manager, it is the path for the root directory of your sprite sheets.
+When you declare a sprite sheet, you need to write 4 things :
+* the key to access your sprite sheet within the code
+* the relative path of your file
+* the number of image horizontally
+* the number of image vertically
+
+Example :
+
+![alt text](test/example.png "Logo Example")
+
+```ini
+test/
+example example.png 4 3
+```
+
+Now you have to tell to the SpriteSheetManager where is your config file, just do this
+```cpp
+SpriteSheetManager::init("yourfile");
+```
+
+And now you can add your spriteSheet to an Entity
+```cpp
+Entity ent;
+ent.setSpriteSheet("key", 5);
+// key is the key of your spriteSheet
+// 5 is the number of second before the engine change the image, put 0 to disable the change
+// You can do that directly in your Entity
+```
+#### Collider
+
+JamEngine provide 2 types of colliders, SquareCollider and SphereCollider. You can add several Colliders to one Entity.
+To do that, you just have to use one of the two functions member of Entity  :
+```cpp
+addSphereCollider(glm::vec2 pos, float radius, Function)
+addSquareCollider(glm::vec2 pos, glm::vec2 size, Function)
+```
+`pos` is define relatively to the Entity that your collider will be attach.
+The third parameter is the function that determine what to do when a collision occur.
 #### KeyEvent
 To use the KeyEventHandler you need to prepare two things. First you need to write a config file to link a word to one or two keys. It look like this 
 ```ini
@@ -106,52 +182,3 @@ SoundManager::play("test", 2); // play test twice with default volume
 SoundManager::play("test", 2, 0.2); // play test twice with volume at 20% of maximum
 // It will play the sound.wav file
 ```
-
-#### Sprite
-You can also use SpriteSheet to add animation to your Entity, it can also be just one image. 
-
-As always you will have a config file. It look like this 
-```ini
-path/to/folder/
-test test.png 1 1
-```
-
-First line, like for the sound manager, it is the path for the root directory of your sprite sheets.
-When you declare a sprite sheet, you need to write 4 things : 
-* the key to access your sprite sheet within the code
-* the relative path of your file 
-* the number of image horizontally
-* the number of image vertically
-
-Example :
-
-![alt text](test/example.png "Logo Example")
-
-```ini
-test/
-example example.png 4 3
-```
-
-Now you have to tell to the SpriteSheetManager where is your config file, just do this 
-```cpp
-SpriteSheetManager::init("yourfile");
-```
-
-And now you can add your spriteSheet to an Entity 
-```cpp
-Entity ent;
-ent.setSpriteSheet("key", 5);
-// key is the key of your spriteSheet
-// 5 is the number of second before the engine change the image, put 0 to disable the change
-// You can do that directly in your Entity 
-```
-#### Collider
-
-JamEngine provide 2 types of colliders, SquareCollider and SphereCollider. You can add several Colliders to one Entity.
-To do that, you just have to use one of the two functions member of Entity  :
-```cpp
-addSphereCollider(glm::vec2 pos, float radius, Function)
-addSquareCollider(glm::vec2 pos, glm::vec2 size, Function)
-```
-`pos` is define relatively to the Entity that your collider will be attach.
-The third parameter is the function that determine what to do when a collision occur.

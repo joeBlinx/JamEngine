@@ -82,11 +82,11 @@ namespace JamEngine{
 
 	void Entity::setPriority(int newPriority) {
 
-		static bool alreadyDefine = false;
-		if(alreadyDefine){
+		if(layerDefine){
 			std::cerr << "priority is already define" << std::endl;
 			return;
 		}
+		layerDefine = true;
 		priority = newPriority;
 
 	}
@@ -151,5 +151,17 @@ namespace JamEngine{
 		SquareCollider collider(this, upperLeftCorner, size);
 		collider.onCollideEvent(std::move(function));
 		squareColliders.emplace_back(std::move(collider));
+	}
+
+	void Entity::setLayer(std::string &&newLayer) {
+		if(layerDefine){
+			std::cerr << "Layer already define" << std::endl;
+			return;
+		}
+		layer = newLayer;
+	}
+
+	Entity::~Entity(){
+
 	}
 }

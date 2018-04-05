@@ -8,8 +8,7 @@
 
 //TODO : refacto and reorganise
 namespace JamEngine {
-	Scene scene;
-
+	Scene Scene::scene;
 	void Scene::init(std::string &&layerFile) {
 		std::ifstream file{std::move(layerFile)};
 		if(!file.is_open()){
@@ -18,17 +17,17 @@ namespace JamEngine {
 		}
 		std::string layer;
 		while(file >> layer){
-			layers.push_back(std::move(layer));
+			scene.layers.push_back(std::move(layer));
 		}
 	}
 
 	void Scene::update(float delta) {
-		checkCollision();
-		for(auto & entity : entities){
+		scene.checkCollision();
+		for(auto & entity : scene.entities){
 			entity->update(delta);
 		}
-		destroyEntities();
-		removeWithoutDestorying();
+		scene.destroyEntities();
+		scene.removeWithoutDestorying();
 	}
 	void Scene::checkCollision() {
 		auto end = entities.end();
@@ -42,16 +41,17 @@ namespace JamEngine {
 	}
 	void Scene::add(Entity *entity) {
 		size_t i ;
+		auto layers = scene.layers;
 		for(i = 0; i  < layers.size(); i++){
 			if(layers[i] == entity->getLayer()){
 				break;
 			}
 		}
 		entity->setPriority(i);
-		entities.insert(entity);
+		scene.entities.insert(entity);
 	}
 	std::multiset<Entity *, compare > const &Scene::getEntities() {
-		return entities;
+		return scene.entities;
 	}
 
 

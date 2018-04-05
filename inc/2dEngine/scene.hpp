@@ -29,15 +29,16 @@ namespace JamEngine {
 		Scene&operator= (Scene&&) = delete;
 		Scene&operator= (Scene const&) = delete;
 
+		static Scene scene;
 		void destroyEntities();
 		void removeWithoutDestorying();
+		void checkCollision();
 	public:
 		Scene();
-		void init(std::string && layerFile);
-		void update(float delta);
-		void checkCollision();
-		void add(Entity * entity);
-		std::multiset<Entity *, compare > const & getEntities();
+		static void init(std::string && layerFile);
+		static void update(float delta);
+		static void add(Entity * entity);
+		static std::multiset<Entity *, compare > const & getEntities();
 		void destroy(Entity *entity);
 		void remove(Entity *entity);
 		void clear();
@@ -45,7 +46,6 @@ namespace JamEngine {
 
 		void clearNoDelete();
 	};
-	extern Scene scene;
 }
 
 #endif //INC_2DENGINE_SCENE_HPP

@@ -8,8 +8,8 @@
 #include <2dEngine/eventManager.hpp>
 #include <2dEngine/window.hpp>
 #include <2dEngine/windowSettings.hpp>
+#include <2dEngine/scene.hpp>
 #include "gameState.hpp"
-#include "scene.hpp"
 
 namespace JamEngine {
 	GameState GameState::gameState;
@@ -60,12 +60,12 @@ namespace JamEngine {
 	}
 
 	void GameState::update() {
-		scene.update(gameState.delta);
+		Scene::update(gameState.delta);
 
 	}
 
 	void GameState::display() {
-		for(auto &ent : scene.getEntities()){
+		for(auto &ent : Scene::getEntities()){
 			ent->display();
 		}
 		if(debugMode){
@@ -74,7 +74,7 @@ namespace JamEngine {
 	}
 
 	void GameState::debug() {
-		for(auto &ent : scene.getEntities()){
+		for(auto &ent : Scene::getEntities()){
 			ent->debug();
 		}
 	}
