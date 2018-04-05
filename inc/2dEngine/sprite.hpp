@@ -27,6 +27,8 @@ namespace JamEngine {
 
 		const info &getInfoSprite() const;
 
+		void use();
+
 		operator bool(){
 			return spriteSheet;
 		}

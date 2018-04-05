@@ -24,12 +24,16 @@ namespace JamEngine{
 				nbImage = 0;
 			}
 		}
-		spriteSheet->bindTexture(0);
 
 
 	}
 
 	const info &Sprite::getInfoSprite() const {
 		return infoSprite;
+	}
+
+	void Sprite::use() {
+		spriteSheet->bindTexture(0);
+
 	}
 }

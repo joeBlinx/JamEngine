@@ -4,7 +4,9 @@
 
 #include "2dEngine/collider/collider.hpp"
 #include <2dEngine/collider/sphereCollider.hpp>
+#include <2dEngine/collider/squareCollider.hpp>
 #include <iostream>
+#include <algorithm>
 
 namespace JamEngine{
 
@@ -26,12 +28,21 @@ namespace JamEngine{
 		}
 	}
 
-	void collide(SquareCollider &square, SphereCollider &sphere) {
-		collide(sphere, square);
+	void collision(SquareCollider &square, SphereCollider &sphere) {
+		collision(sphere, square);
 	}
 
-	void collide(SphereCollider &sphere, SquareCollider &square) {
+	void collision(SphereCollider &sphere, SquareCollider &square) {
+		float squarex = square.getReference().x - square.getSize().x;
+		float squarey = square.getReference().y - square.getSize().y;
 
+
+		float DeltaX = sphere.getReference().x- std::max(squarex, std::min(sphere.getReference().x, squarex + square.getSize().x*2));
+		float DeltaY = sphere.getReference().y - std::max(squarey, std::min(sphere.getReference().y, squarey + square.getSize().y*2));
+
+		 if((DeltaX * DeltaX + DeltaY * DeltaY) < (sphere.getDiameter()	 * sphere.getDiameter())){
+			Collider::callCollideFunction(sphere, square);
+		 }
 	}
 
 	void Collider::move(glm::vec2 const &deplac) {
@@ -42,9 +53,9 @@ namespace JamEngine{
 		return reference;
 	}
 
-	void Collider::callCollideFunction(Collider &collider) {
-		this->operator()(collider);
-		collider(*this);
+	void Collider::callCollideFunction(Collider &collider, Collider& collider2) {
+		collider2(collider);
+		collider(collider2);
 	}
 
 

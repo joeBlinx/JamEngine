@@ -35,6 +35,7 @@ namespace JamEngine{
 										"scale", normalizedScreenSpace(GameState::windowWidth(), GameState::windowHeight()),
 		"hasTexture", (bool)sprite);
 		if(sprite){
+			sprite.use();
 			ProgramManager::update(0, "orig", info.orig,
 											"textureSize", info.size);
 		}
@@ -61,13 +62,12 @@ namespace JamEngine{
 			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 		}
-		//TODO: for square
 		ShapeManager::use(1);
 		for(auto &squareCollider : squareColliders){
 			transformStorage1.tran = squareCollider.getReference();
 			transformStorage1.scale = squareCollider.getSize();
 			ProgramManager::update(1, "isSquare", true,
-			                       "transform", transform(transformStorage1, -0.5f, -0.5f)
+			                       "transform", transform(transformStorage1)
 			);
 			glDrawArrays(GL_LINE_STRIP, 0, 5);
 
@@ -147,7 +147,7 @@ namespace JamEngine{
 	}
 
 	void Entity::addSquareCollider(glm::vec2 upperLeftCorner, glm::vec2 size, Collider::collideFunction function) {
-		upperLeftCorner += pos - size/2.0f;
+		upperLeftCorner += pos ;
 		SquareCollider collider(this, upperLeftCorner, size);
 		collider.onCollideEvent(std::move(function));
 		squareColliders.emplace_back(std::move(collider));

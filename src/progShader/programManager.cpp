@@ -34,10 +34,12 @@ namespace JamEngine{
 		return programManager.add(std::move(key), std::move(program));
 	}
 
+	//TODO : don't forget to change path for release
 	void ProgramManager::init() {
+		std::string path = "../shader/basic/";
 		glish::UniContainer defaultProg{
-			glish::shaderFile{GL_VERTEX_SHADER, "shader/basic/vert.glsl"},
-			glish::shaderFile{GL_FRAGMENT_SHADER, "shader/basic/frag.glsl"}
+			glish::shaderFile{GL_VERTEX_SHADER, (path + std::string("vert.glsl")).c_str()},
+			glish::shaderFile{GL_FRAGMENT_SHADER, (path + std::string("frag.glsl")).c_str()}
 		};
 		defaultProg.add<glm::vec2>("orig");
 		defaultProg.add<glm::vec2>("textureSize");
@@ -49,8 +51,8 @@ namespace JamEngine{
 		programManager.addProgram("default", std::move(defaultProg));
 
 		glish::UniContainer debugProg{
-				glish::shaderFile{GL_VERTEX_SHADER, "shader/basic/vertDebug.glsl"},
-				glish::shaderFile{GL_FRAGMENT_SHADER, "shader/basic/fragDebug.glsl"}
+				glish::shaderFile{GL_VERTEX_SHADER, (path + std::string("vertDebug.glsl")).c_str()},
+				glish::shaderFile{GL_FRAGMENT_SHADER, (path + std::string("fragDebug.glsl")).c_str()}
 		};
 		debugProg.add<glm::mat3>("transform");
 		debugProg.add<glm::mat3>("scale");

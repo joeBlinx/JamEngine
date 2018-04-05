@@ -19,6 +19,8 @@ namespace JamEngine {
 		void collide(SphereCollider &collider) override;
 
 		float getDiameter() const;
+
+		float getRadius() const;
 	};
 }
 

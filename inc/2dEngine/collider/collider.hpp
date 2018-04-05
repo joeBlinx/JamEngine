@@ -21,7 +21,8 @@ namespace JamEngine {
 		glm::vec2 reference;
 
 	protected:
-		void callCollideFunction(Collider & collider);
+
+		static void callCollideFunction(Collider & collider, Collider& collider2);
 	public:
 
 		const glm::vec2 &getReference() const;
@@ -35,8 +36,8 @@ namespace JamEngine {
 
 		void operator()(Collider &collider);
 
-		friend void collide(SquareCollider & square, SphereCollider & sphere);
-		friend void collide(SphereCollider & sphere, SquareCollider & square);
+		friend void collision(SquareCollider &square, SphereCollider &sphere);
+		friend void collision(SphereCollider &sphere, SquareCollider &square);
 	};
 }
 

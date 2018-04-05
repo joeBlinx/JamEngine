@@ -12,33 +12,21 @@ namespace JamEngine {
 	}
 
 	void SquareCollider::collide(SquareCollider &collider) {
-		float x = getReference().x - size.x/2;
-		float y = getReference().y - size.y/2;
-		float colliderx = collider.getReference().x - collider.size.x/2;
-		float collidery = collider.getReference().y - collider.size.y/2;
+		float x = getReference().x; //- size.x/2;
+		float y = getReference().y ;//- size.y/2;
+		float colliderx = collider.getReference().x;// - collider.size.x/2;
+		float collidery = collider.getReference().y ;//- collider.size.y/2;
 
-		if (x < colliderx + collider.size.x &&
+		if (abs(colliderx - x) < collider.size.x + size.x &&
+			abs(collidery - y) < collider.size.y + size.y){
 
-		    x + size.x > colliderx &&
-
-		    y < collidery + collider.size.y &&
-
-		    size.y + y > collidery) {
-
-			//callCollideFunction(collider);
+				callCollideFunction(collider, *this);
 		}
-
-		if (abs(colliderx - x) < collider.size.x + size.x){
-			if (abs(collidery - y) < collider.size.y + size.y){
-				callCollideFunction(collider);
-
-			}
-		}
-
 	}
 
-	void SquareCollider::collide(SphereCollider &collider) {
 
+	void SquareCollider::collide(SphereCollider &collider) {
+		collision(*this, collider);
 	}
 
 	const glm::vec2 &SquareCollider::getSize() const {
