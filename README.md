@@ -17,6 +17,15 @@ It use C++ 17 so you need a compatible compiler, g++-7 or MSVC 17 is fine.
 
 ## How it works 
 All the code is wrap into the namespace JamEngine.
+
+#### Frame
+
+![alt text](test/frame.png "Frame")
+
+#### Position
+The position of all object are define from the center of the object.
+
+![alt text](test/Position.png "Position")
 #### Scene
 This class is a Singleton. You'll have very few interactions with this. You have only 4 methods that you will use :
 * *add* : add an Entity
@@ -136,3 +145,13 @@ ent.setSpriteSheet("key", 5);
 // 5 is the number of second before the engine change the image, put 0 to disable the change
 // You can do that directly in your Entity 
 ```
+#### Collider
+
+JamEngine provide 2 types of colliders, SquareCollider and SphereCollider. You can add several Colliders to one Entity.
+To do that, you just have to use one of the two functions member of Entity  :
+```cpp
+addSphereCollider(glm::vec2 pos, float radius, Function)
+addSquareCollider(glm::vec2 pos, glm::vec2 size, Function)
+```
+`pos` is define relatively to the Entity that your collider will be attach.
+The third parameter is the function that determine what to do when a collision occur.
