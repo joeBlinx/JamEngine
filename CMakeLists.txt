@@ -33,11 +33,11 @@ add_library(2Dengine ${SOURCE_FILES})
 target_link_libraries(2Dengine glish SDL2 SDL2_image)
 
 
-file(GLOB_RECURSE TEST_HPP_FILES test/*.hpp )
-file(GLOB_RECURSE TEST_CPP_FILES test/*.cpp)
+#file(GLOB_RECURSE TEST_HPP_FILES test/*.hpp )
+#file(GLOB_RECURSE TEST_CPP_FILES test/*.cpp)
 
-set(TEST_SOURCE_FILES ${TEST_HPP_FILES} ${TEST_CPP_FILES} )
-add_executable(2dtest ${TEST_SOURCE_FILES})
+#set(TEST_SOURCE_FILES ${TEST_HPP_FILES} ${TEST_CPP_FILES} )
+#add_executable(2dtest ${TEST_SOURCE_FILES})
 
-add_dependencies(2dtest 2Dengine)
-target_link_libraries(2dtest 2Dengine SDL2 SDL2_mixer glish ${EXTERNAL_LIB} utils)
+#add_dependencies(2dtest 2Dengine)
+#target_link_libraries(2dtest 2Dengine SDL2 SDL2_mixer glish ${EXTERNAL_LIB} utils)
