@@ -26,7 +26,9 @@ namespace JamEngine{
 			if(!(file >> key >> path >> nbHoriz >> nbVert)){
 				break;
 			}
-			spriteSheets.emplace(std::pair<std::string, SpriteSheet>{key, SpriteSheet{folder+"/" + path, nbHoriz, nbVert}});
+			path = folder + "/" + path;
+			utils::cleanPath(path);
+			spriteSheets.emplace(std::pair<std::string, SpriteSheet>{key, SpriteSheet{path, nbHoriz, nbVert}});
 		}
 
 	}

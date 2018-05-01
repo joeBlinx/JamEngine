@@ -16,6 +16,7 @@ set(SOURCE_FILES ${HPP_FILES} ${CPP_FILES} )
 if(UNIX)
 	add_compile_options(-Wall -pedantic -Wextra )
 	set(EXTERNAL_LIB  GL GLEW  GLU )
+
 elseif(WIN32)
 	set(EXTERNAL_LIB opengl32 glu32 glew32s  glew32  )
 	if(CMAKE_SIZEOF_VOID_P EQUAL "8" )

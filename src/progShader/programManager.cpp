@@ -36,7 +36,7 @@ namespace JamEngine{
 
 	//TODO : don't forget to change path for release
 	void ProgramManager::init() {
-		std::string path = "shader/basic/";
+		std::string path = "../shader/basic/";
 		glish::UniContainer defaultProg{
 			glish::shaderFile{GL_VERTEX_SHADER, (path + std::string("vert.glsl")).c_str()},
 			glish::shaderFile{GL_FRAGMENT_SHADER, (path + std::string("frag.glsl")).c_str()}
