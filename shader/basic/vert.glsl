@@ -13,5 +13,5 @@ void main() {
 
     gl_Position = vec4(scale*transform*vec3(vertices, 1), 1);
 
-    uvOut = mix(orig, orig+textureSize, vec2(uv.x, -uv.y));
+    uvOut = mix(orig, orig+textureSize, vec2(uv.x, uv.y));
 }

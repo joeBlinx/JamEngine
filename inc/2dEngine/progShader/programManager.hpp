@@ -20,9 +20,9 @@ namespace JamEngine {
 	template<typename T>
 	glm::mat3 normalizedScreenSpace(const T width, const T height) {
 		glm::mat3 mat(
-				2.0f / width, 0.0f, 0.f,
-				0.0f, -2.0f / height, 0.0f,
-				-1.0f, 1.0f, 1.0f
+				1.0f / width, 0.0f, 0.f,
+				0.0f, 1.0f / height, 0.0f,
+				0.0f, 0.0f, 1.0f
 		);
 
 		return mat;
