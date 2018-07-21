@@ -11,6 +11,7 @@
 
 namespace JamEngine {
 	class Entity {
+
 		Sprite sprite;
 		int priority = 0;
 		int program = 0;

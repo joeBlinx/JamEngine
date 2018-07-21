@@ -22,10 +22,6 @@ namespace JamEngine{
 		if(Mix_OpenAudio(44100, AUDIO_S16SYS, 2, 1024)){
 			throw std::runtime_error(Mix_GetError());
 		}
-
-
-
-
 		for(auto i : sons) {
 			if(!i.second){
 				throw std::runtime_error(Mix_GetError());
