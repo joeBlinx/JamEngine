@@ -37,31 +37,38 @@ namespace JamEngine{
 	//TODO : don't forget to change path for release
 	void ProgramManager::init() {
 		std::string path = "../shader/basic/";
-		glish::UniContainer defaultProg{
-			glish::shaderFile{GL_VERTEX_SHADER, (path + std::string("vert.glsl")).c_str()},
-			glish::shaderFile{GL_FRAGMENT_SHADER, (path + std::string("frag.glsl")).c_str()}
-		};
-		defaultProg.add<glm::vec2>("orig");
-		defaultProg.add<glm::vec2>("textureSize");
-		defaultProg.add<glm::mat3>("transform");
-		defaultProg.add<glm::mat3>("scale");
-		defaultProg.add<int>("texture2D");
-		defaultProg.add<bool>("hasTexture");
+        initDefaultProg(path);
 
-		programManager.addProgram("default", std::move(defaultProg));
+		initDebugProg(path);
 
+
+		initCommonUni();
+	}
+
+	void ProgramManager::initDebugProg(const std::string &path) {
 		glish::UniContainer debugProg{
-				glish::shaderFile{GL_VERTEX_SHADER, (path + std::string("vertDebug.glsl")).c_str()},
-				glish::shaderFile{GL_FRAGMENT_SHADER, (path + std::string("fragDebug.glsl")).c_str()}
+				glish::shaderFile{GL_VERTEX_SHADER, (path + std::__cxx11::string("vertDebug.glsl")).c_str()},
+				glish::shaderFile{GL_FRAGMENT_SHADER, (path + std::__cxx11::string("fragDebug.glsl")).c_str()}
 		};
-		debugProg.add<glm::mat3>("transform");
-		debugProg.add<glm::mat3>("scale");
 		debugProg.add<bool>("isSquare");
 		debugProg.add<float>("diameter");
 		programManager.addProgram("debug", std::move(debugProg));
 	}
 
-	void ProgramManager::quit() {
+	void ProgramManager::initDefaultProg(const std::string &path) {
+        glish::UniContainer defaultProg{
+            glish::shaderFile{GL_VERTEX_SHADER, (path + std::__cxx11::string("vert.glsl")).c_str()},
+            glish::shaderFile{GL_FRAGMENT_SHADER, (path + std::__cxx11::string("frag.glsl")).c_str()}
+        };
+        defaultProg.add<glm::vec2>("orig");
+        defaultProg.add<glm::vec2>("textureSize");
+	    defaultProg.add<int>("texture2D");
+        defaultProg.add<bool>("hasTexture");
+
+		programManager.addProgram("default", std::move(defaultProg));
+    }
+
+    void ProgramManager::quit() {
 		programManager.clear();
 
 	}
@@ -70,6 +77,15 @@ namespace JamEngine{
 		if(id != programManager.lastProg) {
 			programManager[id].use();
 			programManager.lastProg = id;
+		}
+	}
+
+	void ProgramManager::initCommonUni() {
+		for(auto & prog : ProgramManager::programManager){
+			prog.add<glm::mat4>("camera");
+			prog.add<glm::mat3>("transform");
+			prog.add<glm::mat3>("scale");
+
 		}
 	}
 }

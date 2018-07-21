@@ -62,3 +62,7 @@ void Camera::addCamera(Camera *newCam) {
 void Camera::changeCamera(int id) {
     Camera::current = cameras[id];
 }
+
+Camera *Camera::getCurrent() {
+    return Camera::current;
+}

@@ -71,17 +71,17 @@ decltype(auto) AssetsList<T>::begin() {
 
 template<class T>
 decltype(auto) AssetsList<T>::begin() const {
-	return ids.cbegin();
-}
-
-template<class T>
-decltype(auto) AssetsList<T>::end() {
 	return ids.begin();
 }
 
 template<class T>
+decltype(auto) AssetsList<T>::end() {
+	return ids.end();
+}
+
+template<class T>
 decltype(auto) AssetsList<T>::end() const {
-	return ids.cbegin();
+	return ids.end();
 }
 
 template<class T>

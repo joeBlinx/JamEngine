@@ -31,6 +31,8 @@ namespace JamEngine {
 		static ProgramManager programManager;
 		int lastProg = -1;
 		static void use(int id);
+		static void initCommonUni();
+
 	public:
 		static int get(std::string && key);
 		static int addProgram(std::string && key ,glish::UniContainer && program);
@@ -43,6 +45,9 @@ namespace JamEngine {
 			programManager[i].update(std::forward<Ts>(args)...);
 		}
 
+		static void initDefaultProg(const std::string &path);
+
+		static void initDebugProg(const std::string &path);
 	};
 }
 

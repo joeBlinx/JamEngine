@@ -43,6 +43,11 @@ public:
     static void addCamera(Camera *newCam);
 
     static void changeCamera(int id);
+
+    static Camera * getCurrent();
+
+
+
 };
 
 #endif //INC_2DENGINE_CAMERA_HPP
