@@ -1,6 +1,4 @@
 //
-// Created by joe on 21/07/18.
-//
 
 #include <glm/detail/type_mat4x4.hpp>
 #include <2dEngine/camera.hpp>
@@ -8,13 +6,13 @@
 
 Camera * Camera::current = nullptr;
 
-std::vector<Camera *> cameras;
+std::vector<Camera *> Camera::cameras;
 const glm::mat4 &Camera::getView() const {
     return view;
 }
 
-const glm::mat4 &Camera::getPerspective() const {
-    return perspective;
+const glm::mat4 &Camera::getProjection() const {
+    return projection;
 }
 
 const glm::vec3 &Camera::getPos() const {
@@ -29,33 +27,28 @@ const glm::vec3 &Camera::getUp() const {
     return up;
 }
 
-Camera::Camera(const glm::vec3 &pos, const glm::vec3 &eye, const glm::vec3 &up, float bottom,
-               float top, float left, float right, float near, float far): pos(pos),
-                                                                           eye(eye),
-                                                                           up(up),
-                                                                           near(near),
-                                                                           far(far),
-                                                                           bottom(bottom),
-                                                                            top(top),
-                                                                           left(left),
-                                                                           right(right) {
-    view = glm::lookAt(pos, eye, up);
-    if(!far){
+Camera::Camera(const glm::vec2 &pos, float bottom, float top,
+			   float left, float right, float near, float far) : pos(glm::vec3(pos, 1)),
+																eye(glm::vec3(pos.x, pos.y, 0)),
+																up(glm::vec3(0, 1, 0)),
+																near(near),
+																far(far),
+																bottom(bottom),
+																top(top),
+																left(left),
+																right(right) {
+    view = glm::lookAt(this->pos, eye, up);
 
-        perspective = glm::ortho(left, right, bottom, top);
-
-    }else{
-
-        perspective = glm::ortho(left, right, bottom, top, near, far);
-    }
+    computeProj();
 }
 
 glm::mat4 Camera::getCamView() const {
-    return perspective*view;
+    return projection*view;
 }
 
-void Camera::addCamera(Camera *newCam) {
+int Camera::addCamera(Camera *newCam) {
     Camera::cameras.push_back(newCam);
+    return Camera::cameras.size() - 1;
 
 }
 
@@ -65,4 +58,48 @@ void Camera::changeCamera(int id) {
 
 Camera *Camera::getCurrent() {
     return Camera::current;
+}
+
+void Camera::move(float x, float y) {
+
+    moveX(x);
+    moveY(y);
+}
+
+void Camera::moveX(float x) {
+    pos.x += x;
+    eye.x += x;
+    computeLookAt();
+}
+
+void Camera::moveY(float y) {
+    pos.y += y;
+    eye.y += y;
+    computeLookAt();
+}
+
+void Camera::computeLookAt() {
+    view = glm::lookAt(pos, eye, up);
+}
+
+void Camera::computeProj() {
+	    if(!far){
+
+        projection = glm::ortho(left, right, bottom, top);
+
+    }else{
+
+        projection = glm::ortho(left, right, bottom, top, near, far);
+    }
+}
+
+void Camera::zoom(float zoom) {
+
+	zoom *=-1;
+	left -= zoom;
+	right += zoom;
+	bottom -= zoom;
+	top += zoom;
+	computeProj();
+
 }

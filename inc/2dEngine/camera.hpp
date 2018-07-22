@@ -19,14 +19,21 @@ private:
     float bottom, top;
     float left, right;
 
-    glm::mat4 perspective;
+    glm::mat4 projection;
     glm::mat4 view;
 
     static Camera * current;
     static std::vector<Camera *> cameras;
+
+
+    void computeLookAt();
+
+    void computeProj();
 public:
-    Camera(const glm::vec3 &pos, const glm::vec3 &eye, const glm::vec3 &up, float bottom,
-           float top, float left, float right, float near = 0, float far = 0);
+    Camera(const glm::vec2 &pos,
+		   float bottom, float top,
+		   float left, float right,
+		   float near = 0, float far = 0);
 
     const glm::vec3 &getPos() const;
 
@@ -36,11 +43,19 @@ public:
 
     const glm::vec3 &getUp() const;
 
-    const glm::mat4 &getPerspective() const;
+    const glm::mat4 &getProjection() const;
+
+    void move(float x, float y);
+
+    void moveX(float x);
+
+    void moveY(float y);
+
+    void zoom(float zoom);
 
     glm::mat4 getCamView() const;
 
-    static void addCamera(Camera *newCam);
+    static int addCamera(Camera *newCam);
 
     static void changeCamera(int id);
 

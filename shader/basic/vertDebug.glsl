@@ -5,12 +5,12 @@ layout(location = 1) in vec2 uv;
 
 uniform mat3 transform;
 uniform mat3 scale;
-
+uniform mat4 camera;
 
 out vec2 uvOut;
 void main() {
 
-    gl_Position = vec4(scale*transform*vec3(vertices, 1), 1);
+    gl_Position = camera*mat4(scale*transform)*vec4(vertices, 0, 1);
 
     uvOut = uv;
 

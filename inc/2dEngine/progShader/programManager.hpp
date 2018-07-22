@@ -44,7 +44,13 @@ namespace JamEngine {
 			use(i);
 			programManager[i].update(std::forward<Ts>(args)...);
 		}
-
+		template <class ...Ts >
+				static void updateAllProg(Ts && ...args){
+			for (auto & prog : ProgramManager::programManager){
+				prog.use();
+				prog.update(std::forward<Ts>(args)...);
+			}
+		}
 		static void initDefaultProg(const std::string &path);
 
 		static void initDebugProg(const std::string &path);

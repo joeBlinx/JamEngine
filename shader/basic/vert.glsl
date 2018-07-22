@@ -8,10 +8,9 @@ uniform vec2 orig;
 uniform vec2 textureSize;
 uniform mat3 transform;
 uniform mat3 scale;
-
+uniform mat4 camera;
 void main() {
 
-    gl_Position = vec4(scale*transform*vec3(vertices, 1), 1);
-
+    gl_Position = camera*mat4(scale*transform)*vec4(vertices, 0, 1);
     uvOut = mix(orig, orig+textureSize, vec2(uv.x, uv.y));
 }

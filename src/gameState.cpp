@@ -9,6 +9,8 @@
 #include <2dEngine/window.hpp>
 #include <2dEngine/windowSettings.hpp>
 #include <2dEngine/scene.hpp>
+#include <2dEngine/camera.hpp>
+#include <2dEngine/progShader/programManager.hpp>
 #include "gameState.hpp"
 
 namespace JamEngine {
@@ -65,6 +67,11 @@ namespace JamEngine {
 	}
 
 	void GameState::display() {
+		glm::mat4 cam;
+		if(Camera::getCurrent()){
+			cam = Camera::getCurrent()->getCamView();
+		}
+		ProgramManager::updateAllProg("camera", cam);
 		for(auto &ent : Scene::getEntities()){
 			ent->display();
 		}
