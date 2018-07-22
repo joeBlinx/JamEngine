@@ -8,7 +8,7 @@
 #include <string>
 #include <functional>
 #include <map>
-#include <2dEngine/keyHandler.hpp>
+#include <2dEngine/input/keyHandler.hpp>
 
 namespace JamEngine {
 	struct KeyEventHandler {

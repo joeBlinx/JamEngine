@@ -2,7 +2,7 @@
 // Created by stiven on 18-01-20.
 //
 
-#include "keyEventHandler.hpp"
+#include "2dEngine/input/keyEventHandler.hpp"
 namespace JamEngine {
 	KeyEventHandler KeyEventHandler::eventHandler;
 

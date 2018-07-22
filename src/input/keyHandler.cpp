@@ -7,7 +7,7 @@
 #include <vector>
 
 #include <iostream>
-#include <2dEngine/keyHandler.hpp>
+#include <2dEngine/input/keyHandler.hpp>
 #include <SDL2/SDL_keycode.h>
 
 namespace JamEngine {
