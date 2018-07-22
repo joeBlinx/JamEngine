@@ -31,9 +31,13 @@ namespace JamEngine {
 
     private:
         SDL_Window *m_window;
+        SDL_Joystick * m_joystick = nullptr;
+        SDL_GameController * m_controller = nullptr;
         SDL_GLContext m_context;
         windowSettings const & settings;
 
+
+        void initJoystick();
     };
 
 }

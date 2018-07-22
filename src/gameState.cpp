@@ -11,6 +11,7 @@
 #include <2dEngine/scene.hpp>
 #include <2dEngine/camera.hpp>
 #include <2dEngine/progShader/programManager.hpp>
+#include <utils/log.hpp>
 #include "gameState.hpp"
 
 namespace JamEngine {
@@ -50,6 +51,25 @@ namespace JamEngine {
 					break;
 				case SDL_KEYUP:
 					KeyEventHandler::executeReleasedFunction(ev.key.keysym.sym);
+					break;
+				case SDL_MOUSEBUTTONUP:
+					KeyEventHandler::executeReleasedFunction(ev.button.button);
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					KeyEventHandler::executePressedFunction(ev.button.button);
+					break;
+				case SDL_CONTROLLERBUTTONDOWN:
+					KeyEventHandler::executePressedFunction(ev.cbutton.button);
+					break;
+				case SDL_CONTROLLERBUTTONUP:
+					KeyEventHandler::executeReleasedFunction(ev.cbutton.button);
+					break;
+				case SDL_MOUSEWHEEL:
+					if(ev.wheel.y > 0){
+						KeyEventHandler::executePressedFunction(JAMENGINE_WHEEL_UP);
+					}else if (ev.wheel.y < 0){
+						KeyEventHandler::executePressedFunction(JAMENGINE_WHEEL_DOWN);
+					}
 					break;
 				case SDL_QUIT:
 					gameOver();

@@ -9,7 +9,12 @@
 #include <map>
 #include <string>
 
+
+
 namespace JamEngine {
+
+	int constexpr JAMENGINE_WHEEL_UP   = 126;
+	int constexpr JAMENGINE_WHEEL_DOWN = 127;
 	class KeyHandler {
 
 		using typeMap = std::pair<std::string, std::pair<int, int>>;

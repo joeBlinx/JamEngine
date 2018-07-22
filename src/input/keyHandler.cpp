@@ -9,6 +9,8 @@
 #include <iostream>
 #include <2dEngine/input/keyHandler.hpp>
 #include <SDL2/SDL_keycode.h>
+#include <SDL2/SDL_mouse.h>
+#include <SDL2/SDL_gamecontroller.h>
 
 namespace JamEngine {
 
@@ -21,20 +23,50 @@ namespace JamEngine {
  * Forward = w, z
  */
 	std::map<std::string, int> const keyBind{
-			{"left_ctrl",   SDLK_LCTRL},
-			{"right_ctrl",  SDLK_RCTRL},
-			{"left_shift",  SDLK_LSHIFT},
-			{"right_shift", SDLK_RSHIFT},
-			{"space",       SDLK_SPACE},
-			{"up",          SDLK_UP},
-			{"down",        SDLK_DOWN},
-			{"right",       SDLK_RIGHT},
-			{"left",        SDLK_LEFT},
-			{"escape",      SDLK_ESCAPE},
-			{"tab",         SDLK_TAB},
-			{"left_alt",    SDLK_LALT},
-			{"right_alt",   SDLK_RALT},
-			{"enter",       SDLK_RETURN}
+				{"left_ctrl",   SDLK_LCTRL},
+			    {"right_ctrl",  SDLK_RCTRL},
+			    {"left_shift",  SDLK_LSHIFT},
+			    {"right_shift", SDLK_RSHIFT},
+			    {"space",       SDLK_SPACE},
+			    {"up",          SDLK_UP},
+			    {"down",        SDLK_DOWN},
+			    {"right",       SDLK_RIGHT},
+			    {"left",        SDLK_LEFT},
+			    {"escape",      SDLK_ESCAPE},
+			    {"tab",         SDLK_TAB},
+			    {"left_alt",    SDLK_LALT},
+			    {"right_alt",   SDLK_RALT},
+			    {"enter",       SDLK_RETURN},
+			    // Mouse
+			    {"btn_left",    SDL_BUTTON_LEFT},
+			    {"btn_right",   SDL_BUTTON_RIGHT},
+			    {"btn_middle",  SDL_BUTTON_MIDDLE},
+			    {"btn_x1",      SDL_BUTTON_X1},
+			    {"btn_x2",      SDL_BUTTON_X2},
+				{"btn_x1",      SDL_BUTTON_X1},
+			    {"btn_x2",      SDL_BUTTON_X2},
+				{"wheel_up",    JAMENGINE_WHEEL_UP},
+				{"wheel_down",  JAMENGINE_WHEEL_DOWN},
+			//Controller
+
+			    {"pad_a",               SDL_CONTROLLER_BUTTON_A},
+			    {"pad_b",               SDL_CONTROLLER_BUTTON_B},
+			    {"pad_x",               SDL_CONTROLLER_BUTTON_X},
+			    {"pad_y",               SDL_CONTROLLER_BUTTON_Y},
+			    {"pad_back",            SDL_CONTROLLER_BUTTON_BACK},
+			    {"pad_guide",           SDL_CONTROLLER_BUTTON_GUIDE},
+			    {"pad_start",           SDL_CONTROLLER_BUTTON_START},
+			    {"pad_left_stick",      SDL_CONTROLLER_BUTTON_LEFTSTICK},
+			    {"pad_right_stick",     SDL_CONTROLLER_BUTTON_RIGHTSTICK},
+			    {"pad_left_shoulder",   SDL_CONTROLLER_BUTTON_LEFTSHOULDER},
+			    {"pad_right_shoulder",  SDL_CONTROLLER_BUTTON_RIGHTSHOULDER},
+			    {"pad_up",              SDL_CONTROLLER_BUTTON_DPAD_UP},
+			    {"pad_down",            SDL_CONTROLLER_BUTTON_DPAD_DOWN},
+			    {"pad_left",            SDL_CONTROLLER_BUTTON_DPAD_LEFT},
+			    {"pad_right",           SDL_CONTROLLER_BUTTON_DPAD_RIGHT},
+
+
+
 	};
 
 	void assign(int & value, std::string strValue){

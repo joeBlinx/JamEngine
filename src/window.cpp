@@ -10,13 +10,16 @@
 #include <2dEngine/shapeManager.hpp>
 #include <2dEngine/progShader/programManager.hpp>
 #include <2dEngine/spriteSheetManager.hpp>
+#include <utils/log.hpp>
 
 
 namespace JamEngine {
+	using namespace utils;
     Window::~Window() {
     	ShapeManager::quit();
     	ProgramManager::quit();
     	SpriteSheetManager::quit();
+    	SDL_JoystickClose(m_joystick);
         SDL_GL_DeleteContext(m_context);
         SDL_DestroyWindow(m_window);
         SDL_Quit();
@@ -24,7 +27,7 @@ namespace JamEngine {
 
     Window::Window(windowSettings const & settings):settings(settings) {
         if (SDL_Init(SDL_INIT_EVERYTHING)) {
-            throw std::runtime_error("error while initialize SDL2 " + std::string{SDL_GetError()});
+            printFatalError("error while initialize SDL2 " + std::string{SDL_GetError()});
         }
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, settings.majorVersion);
 
@@ -36,15 +39,14 @@ namespace JamEngine {
         if(!m_window){
             std::string erreur {SDL_GetError()};
             SDL_Quit();
-            throw std::runtime_error("error while initialize window "+erreur);
+            printFatalError("error while initialize window "+erreur);
         }
 
         m_context = SDL_GL_CreateContext(m_window);
 	    glewExperimental = GL_TRUE;
 	    auto err = glewInit();
 	    if(err!= GLEW_OK){
-		    std::cerr << glewGetErrorString(err) << std::endl;
-		    throw std::runtime_error("error while initialize glew" );
+		    printFatalError(glewGetErrorString(err), "error while initialize glew");
 	    }
 	    glGetError();
 	    glClearColor(0.5, 0.5, 0.5, 1);
@@ -54,6 +56,7 @@ namespace JamEngine {
 		glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glGetError();
 
+		initJoystick();
 		ShapeManager::init();
 		ProgramManager::init();
 	}
@@ -64,6 +67,51 @@ namespace JamEngine {
 
 	const windowSettings &Window::getSettings() const {
 		return settings;
+	}
+
+	void Window::initJoystick() {
+
+		// Enumerate m_joysticksticks
+		for (int i = 0; i < SDL_NumJoysticks(); ++i) {
+
+			// Check to see if m_joystickstick supports SDL's game m_controller interface
+			if (SDL_IsGameController(i)) {
+				m_controller = SDL_GameControllerOpen(i);
+				if (m_controller) {
+					print("Found a valid m_controller, named: \n",
+							  SDL_GameControllerName(m_controller), "\n");
+					break;  // Break after first available m_controller
+				} else {
+					printWarning("Could not open game m_controller \n", i,  SDL_GetError());
+				}
+
+				// Controller interface not supported, try to open as m_joystickstick
+			} else {
+				printError("Joystick %i is not supported by the game m_controller interface", i);
+				m_joystick = SDL_JoystickOpen(i);
+
+				// Joystick is valid
+				if (m_joystick) {
+					print(
+							  "Opened Joystick %i\n",
+							  "Name: %s\n",
+							  "Axes: %d\n",
+							  "Buttons: %d\n",
+							  "Balls: %d\n",
+							  i, SDL_JoystickName(m_joystick), SDL_JoystickNumAxes(m_joystick),
+							  SDL_JoystickNumButtons(m_joystick)<< SDL_JoystickNumBalls(m_joystick));
+
+
+					// Joystick not valid
+				} else {
+					printError("Could not open Joystick %i", i);
+				}
+
+				break;  // Break after first available m_joystickstick
+			}
+		}
+
+
 	}
 
 

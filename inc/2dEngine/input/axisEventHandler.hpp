@@ -1,0 +1,14 @@
+//
+// Created by joe on 22/07/18.
+//
+
+#ifndef INC_2DENGINE_AXISEVENTHANDLER_HPP
+#define INC_2DENGINE_AXISEVENTHANDLER_HPP
+
+
+class AxisEventHandler {
+
+};
+
+
+#endif //INC_2DENGINE_AXISEVENTHANDLER_HPP
