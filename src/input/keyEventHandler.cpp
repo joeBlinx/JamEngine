@@ -6,7 +6,9 @@
 namespace JamEngine {
 	KeyEventHandler KeyEventHandler::eventHandler;
 
-	void addKey(KeyEventHandler::mapFunction & map, std::string &&key, KeyEventHandler::eventFunction &function){
+
+	template <class T, class U>
+	void addKey(std::map<U, std::vector<T>> & map, U &&key, T &function){
 		auto &vecFunction = map[std::move(key)];
 		vecFunction.push_back(function);
 	}
@@ -43,5 +45,15 @@ namespace JamEngine {
 
 	void KeyEventHandler::executeReleasedFunction(int key) {
 		eventHandler.executeFunction(key, eventHandler.functionReleased);
+	}
+
+	void KeyEventHandler::addAxisFunction(axis key, KeyEventHandler::axisFunction function) {
+		addKey(eventHandler.functionAxis, std::move(key), function);
+	}
+
+	void  KeyEventHandler::executeAxisFunction(axis key, float delta) {
+		for (auto& function : eventHandler.functionAxis[key]){
+			function(delta);
+		}
 	}
 }

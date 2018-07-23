@@ -11,6 +11,6 @@ uniform mat3 scale;
 uniform mat4 camera;
 void main() {
 
-    gl_Position = camera*mat4(scale*transform)*vec4(vertices, 0, 1);
+    gl_Position = camera*mat4(scale*transform)*vec4(vertices, 1, 1);
     uvOut = mix(orig, orig+textureSize, vec2(uv.x, uv.y));
 }

@@ -16,12 +16,14 @@ namespace JamEngine {
 		int const *  width = nullptr;
 		int const *  height = nullptr;
 
+
 		GameState(GameState&&) = delete;
 		GameState(GameState const &) = delete;
 		GameState&operator=(GameState&&) = delete;
 		GameState&operator=(GameState const &) = delete;
 
-		void input();
+		void input(Window &window);
+		void axisInput(Window &window);
 		void update();
 		void debug();
 		void display();

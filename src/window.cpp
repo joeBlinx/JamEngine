@@ -114,5 +114,13 @@ namespace JamEngine {
 
 	}
 
+	bool Window::hasController() const {
+		return (bool)m_controller;
+	}
+
+	SDL_GameController *Window::getController() const {
+		return m_controller;
+	}
+
 
 }

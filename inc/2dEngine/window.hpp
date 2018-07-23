@@ -19,6 +19,8 @@ namespace JamEngine {
 
         operator  SDL_Window*()const { return m_window;}
 
+        bool hasController() const;
+
         Window () = delete;
 
         Window(Window const &) = delete;
@@ -29,7 +31,9 @@ namespace JamEngine {
 
         ~Window();
 
-    private:
+		SDL_GameController *getController() const;
+
+	private:
         SDL_Window *m_window;
         SDL_Joystick * m_joystick = nullptr;
         SDL_GameController * m_controller = nullptr;

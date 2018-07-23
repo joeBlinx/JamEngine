@@ -26,7 +26,7 @@ namespace JamEngine {
 			int end;
 
 			EventManager::execute(gameState.delta);
-			gameState.input();
+			gameState.input(window);
 			gameState.update();
 			gameState.display();
 
@@ -39,7 +39,7 @@ namespace JamEngine {
 		}
 	}
 
-	void GameState::input() {
+	void GameState::input(Window &window) {
 		SDL_Event ev;
 		while(SDL_PollEvent(&ev)){
 			switch(ev.type){
@@ -59,10 +59,14 @@ namespace JamEngine {
 					KeyEventHandler::executePressedFunction(ev.button.button);
 					break;
 				case SDL_CONTROLLERBUTTONDOWN:
-					KeyEventHandler::executePressedFunction(ev.cbutton.button);
+					if(window.hasController()) {
+						KeyEventHandler::executePressedFunction(ev.cbutton.button);
+					}
 					break;
 				case SDL_CONTROLLERBUTTONUP:
-					KeyEventHandler::executeReleasedFunction(ev.cbutton.button);
+					if(window.hasController()) {
+						KeyEventHandler::executeReleasedFunction(ev.cbutton.button);
+					}
 					break;
 				case SDL_MOUSEWHEEL:
 					if(ev.wheel.y > 0){
@@ -77,7 +81,11 @@ namespace JamEngine {
 
 				default:break;
 			}
+
 		}
+		if (window.hasController()) {
+				axisInput(window);
+			}
 
 	}
 
@@ -124,5 +132,22 @@ namespace JamEngine {
 
 	int GameState::windowHeight() {
 		return *gameState.height;
+	}
+
+	void sendAxis(axis axis, SDL_GameController * controller){
+		int value = SDL_GameControllerGetAxis(controller, static_cast<SDL_GameControllerAxis>(axis));
+		float valuetoSend = value/32767.;
+
+		KeyEventHandler::executeAxisFunction(axis, valuetoSend);
+	}
+	void GameState::axisInput(Window &window) {
+		SDL_GameController * controller = window.getController();
+		sendAxis(axis::GAME_CONTROLLER_RIGHTY, controller);
+		sendAxis(axis::GAME_CONTROLLER_RIGHTX, controller);
+		sendAxis(axis::GAME_CONTROLLER_LEFTY, controller);
+		sendAxis(axis::GAME_CONTROLLER_LEFTX, controller);
+		sendAxis(axis::GAME_CONTROLLER_TRIGGER_LEFT, controller);
+		sendAxis(axis::GAME_CONTROLLER_TRIGGER_RIGHT, controller);
+
 	}
 }
