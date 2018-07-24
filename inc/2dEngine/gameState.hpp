@@ -5,6 +5,10 @@
 #ifndef INC_2DENGINE_GAMESTATE_HPP
 #define INC_2DENGINE_GAMESTATE_HPP
 
+#include <functional>
+#include <2dEngine/input/keyEventHandler.hpp>
+#include <SDL2/SDL.h>
+
 namespace JamEngine {
 	struct Window;
 	class GameState {
@@ -37,7 +41,12 @@ namespace JamEngine {
 		static int windowWidth();
 		static int windowHeight();
 
+		void sendAxis(axis axis, SDL_GameController *controller);
+
+		void mouseInput(Window &window);
 	};
+
+
 
 }
 

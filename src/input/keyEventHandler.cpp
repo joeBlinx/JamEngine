@@ -56,4 +56,14 @@ namespace JamEngine {
 			function(delta);
 		}
 	}
+	void InputEventHandler::executeMouseFunction(float x, float y) {
+		for (auto& function : eventHandler.functionMouse){
+			function(x, y);
+		}
+
+	}
+
+	void InputEventHandler::addMouseFunction(mouseFunction function) {
+		eventHandler.functionMouse.push_back(function);
+	}
 }

@@ -32,28 +32,39 @@ namespace JamEngine {
 
 		using axisFunction = std::function<void(float)>;
 		using mapAxisFunction = std::map<axis,  std::vector<axisFunction>>;
+
+		using mouseFunction = std::function<void(float, float)>;
+		using mapMouseFunction = std::vector<mouseFunction> ;
+
+
+		friend class GameState;
 	private:
 		KeyHandler keyHandler;
 		mapFunction functionPressed;
 		mapFunction functionReleased;
 
 		mapAxisFunction functionAxis;
+
+		mapMouseFunction functionMouse;
 		static InputEventHandler eventHandler;
 		InputEventHandler() = default;
 
 		void executeFunction(int key, mapFunction &map);
+		static void executeMouseFunction(float x, float y);
+		static void executeAxisFunction(axis key, float delta);
+
+		static void executeReleasedFunction(int key);
+		static void executePressedFunction(int key);
 	public:
 		static void init(std::string && configFile);
 		static void addKeyEventPressed(std::string &&key, eventFunction function);
 
-		static void executePressedFunction(int key);
 		static void addKeyEventReleased(std::string &&key, eventFunction function);
 
-		static void executeReleasedFunction(int key);
 
 		static void addAxisFunction(axis key, axisFunction function);
 
-		static void executeAxisFunction(axis key, float delta);
+		static void addMouseFunction(mouseFunction function);
 	};
 
 }

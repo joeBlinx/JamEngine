@@ -85,7 +85,8 @@ namespace JamEngine {
 		}
 		if (window.hasController()) {
 				axisInput(window);
-			}
+		}
+		mouseInput(window);
 
 	}
 
@@ -134,7 +135,7 @@ namespace JamEngine {
 		return *gameState.height;
 	}
 
-	void sendAxis(axis axis, SDL_GameController * controller){
+	void GameState::sendAxis(axis axis, SDL_GameController * controller){
 		int value = SDL_GameControllerGetAxis(controller, static_cast<SDL_GameControllerAxis>(axis));
 		float valuetoSend = value/32767.;
 
@@ -149,5 +150,15 @@ namespace JamEngine {
 		sendAxis(axis::GAME_CONTROLLER_TRIGGER_LEFT, controller);
 		sendAxis(axis::GAME_CONTROLLER_TRIGGER_RIGHT, controller);
 
+	}
+
+	void GameState::mouseInput(Window &window) {
+		int x, y;
+		float sendX, sendY;
+		SDL_GetMouseState(&x, &y);
+		sendX = (((float)x/window.getSettings().width) -0.5f) *2.0f;
+		sendY = - (((float)y/window.getSettings().height) - 0.5f)*2.0f ;
+
+		InputEventHandler::executeMouseFunction(sendX, sendY);
 	}
 }
