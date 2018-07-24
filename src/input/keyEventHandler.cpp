@@ -4,7 +4,7 @@
 
 #include "2dEngine/input/keyEventHandler.hpp"
 namespace JamEngine {
-	KeyEventHandler KeyEventHandler::eventHandler;
+	InputEventHandler InputEventHandler::eventHandler;
 
 
 	template <class T, class U>
@@ -13,7 +13,7 @@ namespace JamEngine {
 		vecFunction.push_back(function);
 	}
 
-	void KeyEventHandler::executeFunction(int key, KeyEventHandler::mapFunction & map){
+	void InputEventHandler::executeFunction(int key, InputEventHandler::mapFunction & map){
 
 		for(auto &[keyPressed, function] : map){
 			auto &[value1, value2] = keyHandler[keyPressed];
@@ -26,32 +26,32 @@ namespace JamEngine {
 		}
 
 	}
-	void KeyEventHandler::addKeyEventPressed(std::string &&key, std::function<void()> function) {
+	void InputEventHandler::addKeyEventPressed(std::string &&key, std::function<void()> function) {
 		addKey(eventHandler.functionPressed, std::move(key), function);
 	}
 
-	void KeyEventHandler::init(std::string &&configFile) {
+	void InputEventHandler::init(std::string &&configFile) {
 		eventHandler.keyHandler.mapKey(std::move(configFile));
 	}
 
-	void KeyEventHandler::executePressedFunction(int key) {
+	void InputEventHandler::executePressedFunction(int key) {
 		eventHandler.executeFunction(key, eventHandler.functionPressed);
 
 	}
 
-	void KeyEventHandler::addKeyEventReleased(std::string &&key, KeyEventHandler::eventFunction function) {
+	void InputEventHandler::addKeyEventReleased(std::string &&key, InputEventHandler::eventFunction function) {
 		addKey(eventHandler.functionReleased, std::move(key), function);
 	}
 
-	void KeyEventHandler::executeReleasedFunction(int key) {
+	void InputEventHandler::executeReleasedFunction(int key) {
 		eventHandler.executeFunction(key, eventHandler.functionReleased);
 	}
 
-	void KeyEventHandler::addAxisFunction(axis key, KeyEventHandler::axisFunction function) {
+	void InputEventHandler::addAxisFunction(axis key, InputEventHandler::axisFunction function) {
 		addKey(eventHandler.functionAxis, std::move(key), function);
 	}
 
-	void  KeyEventHandler::executeAxisFunction(axis key, float delta) {
+	void  InputEventHandler::executeAxisFunction(axis key, float delta) {
 		for (auto& function : eventHandler.functionAxis[key]){
 			function(delta);
 		}

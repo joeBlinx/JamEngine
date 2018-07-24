@@ -24,7 +24,7 @@ namespace JamEngine {
 		GAME_CONTROLLER_AXIS_MAX
 	};
 
-	struct KeyEventHandler {
+	struct InputEventHandler{
 
 		using mapFunction = std::map<std::string, std::vector<std::function<void()>>>;
 		using eventFunction = std::function <void()>;
@@ -38,8 +38,8 @@ namespace JamEngine {
 		mapFunction functionReleased;
 
 		mapAxisFunction functionAxis;
-		static KeyEventHandler eventHandler;
-		KeyEventHandler() = default;
+		static InputEventHandler eventHandler;
+		InputEventHandler() = default;
 
 		void executeFunction(int key, mapFunction &map);
 	public:

@@ -47,32 +47,32 @@ namespace JamEngine {
 					if(ev.key.keysym.sym == SDLK_ESCAPE){
 						gameOver();
 					}
-					KeyEventHandler::executePressedFunction(ev.key.keysym.sym);
+					InputEventHandler::executePressedFunction(ev.key.keysym.sym);
 					break;
 				case SDL_KEYUP:
-					KeyEventHandler::executeReleasedFunction(ev.key.keysym.sym);
+					InputEventHandler::executeReleasedFunction(ev.key.keysym.sym);
 					break;
 				case SDL_MOUSEBUTTONUP:
-					KeyEventHandler::executeReleasedFunction(ev.button.button);
+					InputEventHandler::executeReleasedFunction(ev.button.button);
 					break;
 				case SDL_MOUSEBUTTONDOWN:
-					KeyEventHandler::executePressedFunction(ev.button.button);
+					InputEventHandler::executePressedFunction(ev.button.button);
 					break;
 				case SDL_CONTROLLERBUTTONDOWN:
 					if(window.hasController()) {
-						KeyEventHandler::executePressedFunction(ev.cbutton.button);
+						InputEventHandler::executePressedFunction(ev.cbutton.button);
 					}
 					break;
 				case SDL_CONTROLLERBUTTONUP:
 					if(window.hasController()) {
-						KeyEventHandler::executeReleasedFunction(ev.cbutton.button);
+						InputEventHandler::executeReleasedFunction(ev.cbutton.button);
 					}
 					break;
 				case SDL_MOUSEWHEEL:
 					if(ev.wheel.y > 0){
-						KeyEventHandler::executePressedFunction(JAMENGINE_WHEEL_UP);
+						InputEventHandler::executePressedFunction(JAMENGINE_WHEEL_UP);
 					}else if (ev.wheel.y < 0){
-						KeyEventHandler::executePressedFunction(JAMENGINE_WHEEL_DOWN);
+						InputEventHandler::executePressedFunction(JAMENGINE_WHEEL_DOWN);
 					}
 					break;
 				case SDL_QUIT:
@@ -138,7 +138,7 @@ namespace JamEngine {
 		int value = SDL_GameControllerGetAxis(controller, static_cast<SDL_GameControllerAxis>(axis));
 		float valuetoSend = value/32767.;
 
-		KeyEventHandler::executeAxisFunction(axis, valuetoSend);
+		InputEventHandler::executeAxisFunction(axis, valuetoSend);
 	}
 	void GameState::axisInput(Window &window) {
 		SDL_GameController * controller = window.getController();

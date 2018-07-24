@@ -140,19 +140,19 @@ addSquareCollider(glm::vec2 pos, glm::vec2 size, Function)
 `pos` is define relatively to the Entity that your collider will be attach.
 The third parameter is the function that determine what to do when a collision occur.
 #### KeyEvent
-To use the KeyEventHandler you need to prepare two things. First you need to write a config file to link a word to one or two keys. It look like this 
+To use the InputEventHandler you need to prepare two things. First you need to write a config file to link a word to one or two keys. It look like this 
 ```ini
 jump = space
 move = w, z
 ```
-Here `jump` is associated with the `space bar`, and `move` with the `w` and `z` keys. After that you need to tell to the KeyEventHandler which file to use with the init function.
+Here `jump` is associated with the `space bar`, and `move` with the `w` and `z` keys. After that you need to tell to the InputEventHandler which file to use with the init function.
 ```
-KeyEventHandler::init("youFile");
+InputEventHandler::init("youFile");
 ```
 Now the initialisation is correctly done. Two function are available to define if you want the action to be done when the key is pressed or released. 
 ```cpp
-KeyEventHandler::addKeyEventPressed("move", []{//something});
-KeyEventHandler::addKeyEventReleased("jump", []{//something else});
+InputEventHandler::addKeyEventPressed("move", []{//something});
+InputEventHandler::addKeyEventReleased("jump", []{//something else});
 ```
 #### Event
 You can add some event, anywhere, at anytime in your code. You define the duration of your event and what it does.
@@ -166,7 +166,7 @@ It will display this at every frame for 5 seconds.
 Here I use a Lambda function, but you can use what you want.
 
 #### Sound
-It also possible to add sound in you game, but like the KeyEventHandler, it need a config file.
+It also possible to add sound in you game, but like the InputEventHandler, it need a config file.
 ```ini
 path/to/your/sound/folder
 test sound.wav
