@@ -147,12 +147,12 @@ move = w, z
 ```
 Here `jump` is associated with the `space bar`, and `move` with the `w` and `z` keys. After that you need to tell to the InputEventHandler which file to use with the init function.
 ```
-InputEventHandler::init("youFile");
+GET_INPUTEVENTHANDLER("default").init("youFile");
 ```
 Now the initialisation is correctly done. Two function are available to define if you want the action to be done when the key is pressed or released. 
 ```cpp
-InputEventHandler::addInputEventPressed("move", []{//something});
-InputEventHandler::addInputEventReleased("jump", []{//something else});
+GET_INPUTEVENTHANDLER("default").addInputEventPressed("move", []{//something});
+GET_INPUTEVENTHANDLER("default").addInputEventReleased("jump", []{//something else});
 ```
 #### Event
 You can add some event, anywhere, at anytime in your code. You define the duration of your event and what it does.

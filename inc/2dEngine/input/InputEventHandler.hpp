@@ -13,7 +13,7 @@
 namespace JamEngine {
 
 
-	enum class axis{
+	enum class axis {
 		GAME_CONTROLLER_INVALID = -1,
 		GAME_CONTROLLER_LEFTX,
 		GAME_CONTROLLER_LEFTY,
@@ -24,20 +24,21 @@ namespace JamEngine {
 		GAME_CONTROLLER_AXIS_MAX
 	};
 
-	struct InputEventHandler{
+	struct InputEventHandler {
 
 		using mapFunction = std::map<std::string, std::vector<std::function<void()>>>;
-		using eventFunction = std::function <void()>;
+		using eventFunction = std::function<void()>;
 
 
 		using axisFunction = std::function<void(float)>;
-		using mapAxisFunction = std::map<axis,  std::vector<axisFunction>>;
+		using mapAxisFunction = std::map<axis, std::vector<axisFunction>>;
 
 		using mouseFunction = std::function<void(float, float)>;
-		using mapMouseFunction = std::vector<mouseFunction> ;
+		using mapMouseFunction = std::vector<mouseFunction>;
 
 
 		friend class GameState;
+
 	private:
 		KeyHandler keyHandler;
 		mapFunction functionPressed;
@@ -46,26 +47,36 @@ namespace JamEngine {
 		mapAxisFunction functionAxis;
 
 		mapMouseFunction functionMouse;
+		static std::map<std::string, InputEventHandler> eventHandlers;
 		static InputEventHandler eventHandler;
+
 		InputEventHandler() = default;
 
 		void executeFunction(int key, mapFunction &map);
-		static void executeMouseFunction(float x, float y);
-		static void executeAxisFunction(axis key, float delta);
 
-		static void executeReleasedFunction(int key);
-		static void executePressedFunction(int key);
+		void executeMouseFunction(float x, float y);
+
+		void executeAxisFunction(axis key, float delta);
+
+		void executeReleasedFunction(int key);
+
+		void executePressedFunction(int key);
+
 	public:
-		static void init(std::string && configFile);
-		static void addInputEventPressed(std::string &&key, eventFunction function);
+		void init(std::string &&configFile);
 
-		static void addInputEventReleased(std::string &&key, eventFunction function);
+		void addInputEventPressed(std::string &&key, eventFunction function);
+
+		void addInputEventReleased(std::string &&key, eventFunction function);
 
 
-		static void addAxisFunction(axis key, axisFunction function);
+		void addAxisFunction(axis key, axisFunction function);
 
-		static void addMouseFunction(mouseFunction function);
+		void addMouseFunction(mouseFunction function);
+
+		static InputEventHandler &getHandler(std::string &&name);
 	};
 
+#define GET_INPUTEVENTHANDLER(name) InputEventHandler::getHandler(name)
 }
 #endif //ALLPROJECT_KEYEVENTHANDLER_HPP

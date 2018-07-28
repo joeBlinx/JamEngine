@@ -47,32 +47,32 @@ namespace JamEngine {
 					if(ev.key.keysym.sym == SDLK_ESCAPE){
 						gameOver();
 					}
-					InputEventHandler::executePressedFunction(ev.key.keysym.sym);
+					GET_INPUTEVENTHANDLER("default").executePressedFunction(ev.key.keysym.sym);
 					break;
 				case SDL_KEYUP:
-					InputEventHandler::executeReleasedFunction(ev.key.keysym.sym);
+					GET_INPUTEVENTHANDLER("default").executeReleasedFunction(ev.key.keysym.sym);
 					break;
 				case SDL_MOUSEBUTTONUP:
-					InputEventHandler::executeReleasedFunction(ev.button.button);
+					GET_INPUTEVENTHANDLER("default").executeReleasedFunction(ev.button.button);
 					break;
 				case SDL_MOUSEBUTTONDOWN:
-					InputEventHandler::executePressedFunction(ev.button.button);
+					GET_INPUTEVENTHANDLER("default").executePressedFunction(ev.button.button);
 					break;
 				case SDL_CONTROLLERBUTTONDOWN:
 					if(window.hasController()) {
-						InputEventHandler::executePressedFunction(ev.cbutton.button);
+						GET_INPUTEVENTHANDLER("default").executePressedFunction(ev.cbutton.button);
 					}
 					break;
 				case SDL_CONTROLLERBUTTONUP:
 					if(window.hasController()) {
-						InputEventHandler::executeReleasedFunction(ev.cbutton.button);
+						GET_INPUTEVENTHANDLER("default").executeReleasedFunction(ev.cbutton.button);
 					}
 					break;
 				case SDL_MOUSEWHEEL:
 					if(ev.wheel.y > 0){
-						InputEventHandler::executePressedFunction(JAMENGINE_WHEEL_UP);
+						GET_INPUTEVENTHANDLER("default").executePressedFunction(JAMENGINE_WHEEL_UP);
 					}else if (ev.wheel.y < 0){
-						InputEventHandler::executePressedFunction(JAMENGINE_WHEEL_DOWN);
+						GET_INPUTEVENTHANDLER("default").executePressedFunction(JAMENGINE_WHEEL_DOWN);
 					}
 					break;
 				case SDL_QUIT:
@@ -137,9 +137,9 @@ namespace JamEngine {
 
 	void GameState::sendAxis(axis axis, SDL_GameController * controller){
 		int value = SDL_GameControllerGetAxis(controller, static_cast<SDL_GameControllerAxis>(axis));
-		float valuetoSend = value/32767.;
+		float valuetoSend = value/32767.f;
 
-		InputEventHandler::executeAxisFunction(axis, valuetoSend);
+		GET_INPUTEVENTHANDLER("default").executeAxisFunction(axis, valuetoSend);
 	}
 	void GameState::axisInput(Window &window) {
 		SDL_GameController * controller = window.getController();
@@ -159,6 +159,6 @@ namespace JamEngine {
 		sendX = (((float)x/window.getSettings().width) -0.5f) *2.0f;
 		sendY = - (((float)y/window.getSettings().height) - 0.5f)*2.0f ;
 
-		InputEventHandler::executeMouseFunction(sendX, sendY);
+		GET_INPUTEVENTHANDLER("default").executeMouseFunction(sendX, sendY);
 	}
 }

@@ -27,43 +27,47 @@ namespace JamEngine {
 
 	}
 	void InputEventHandler::init(std::string &&configFile) {
-		eventHandler.keyHandler.mapKey(std::move(configFile));
+		keyHandler.mapKey(std::move(configFile));
 	}
 
 	void InputEventHandler::addInputEventPressed(std::string &&key, std::function<void()> function) {
-		addKey(eventHandler.functionPressed, std::move(key), function);
+		addKey(functionPressed, std::move(key), function);
 	}
 
 	void InputEventHandler::addInputEventReleased(std::string &&key, InputEventHandler::eventFunction function) {
-		addKey(eventHandler.functionReleased, std::move(key), function);
+		addKey(functionReleased, std::move(key), function);
 	}
 
 	void InputEventHandler::addAxisFunction(axis key, InputEventHandler::axisFunction function) {
-		addKey(eventHandler.functionAxis, std::move(key), function);
+		addKey(functionAxis, std::move(key), function);
 	}
 
 	void InputEventHandler::addMouseFunction(mouseFunction function) {
-		eventHandler.functionMouse.push_back(function);
+		functionMouse.push_back(function);
 	}
 
 	void InputEventHandler::executePressedFunction(int key) {
-		eventHandler.executeFunction(key, eventHandler.functionPressed);
+		executeFunction(key, functionPressed);
 
 	}
 
 	void InputEventHandler::executeReleasedFunction(int key) {
-		eventHandler.executeFunction(key, eventHandler.functionReleased);
+		executeFunction(key, functionReleased);
 	}
 	void  InputEventHandler::executeAxisFunction(axis key, float delta) {
-		for (auto& function : eventHandler.functionAxis[key]){
+		for (auto& function : functionAxis[key]){
 			function(delta);
 		}
 	}
 
 	void InputEventHandler::executeMouseFunction(float x, float y) {
-		for (auto& function : eventHandler.functionMouse){
+		for (auto& function : functionMouse){
 			function(x, y);
 		}
 
+	}
+	InputEventHandler &InputEventHandler::getHandler(std::string &&name) {
+		//return eventHandlers[std::move(name)];
+		return eventHandler;
 	}
 }
