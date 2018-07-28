@@ -6,7 +6,7 @@
 #define INC_2DENGINE_GAMESTATE_HPP
 
 #include <functional>
-#include <2dEngine/input/keyEventHandler.hpp>
+#include <2dEngine/input/InputEventHandler.hpp>
 #include <SDL2/SDL.h>
 
 namespace JamEngine {

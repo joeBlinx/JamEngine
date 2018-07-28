@@ -4,7 +4,7 @@
 
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
-#include <2dEngine/input/keyEventHandler.hpp>
+#include <2dEngine/input/InputEventHandler.hpp>
 #include <2dEngine/eventManager.hpp>
 #include <2dEngine/window.hpp>
 #include <2dEngine/windowSettings.hpp>

@@ -57,9 +57,9 @@ namespace JamEngine {
 		static void executePressedFunction(int key);
 	public:
 		static void init(std::string && configFile);
-		static void addKeyEventPressed(std::string &&key, eventFunction function);
+		static void addInputEventPressed(std::string &&key, eventFunction function);
 
-		static void addKeyEventReleased(std::string &&key, eventFunction function);
+		static void addInputEventReleased(std::string &&key, eventFunction function);
 
 
 		static void addAxisFunction(axis key, axisFunction function);

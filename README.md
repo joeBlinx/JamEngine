@@ -151,8 +151,8 @@ InputEventHandler::init("youFile");
 ```
 Now the initialisation is correctly done. Two function are available to define if you want the action to be done when the key is pressed or released. 
 ```cpp
-InputEventHandler::addKeyEventPressed("move", []{//something});
-InputEventHandler::addKeyEventReleased("jump", []{//something else});
+InputEventHandler::addInputEventPressed("move", []{//something});
+InputEventHandler::addInputEventReleased("jump", []{//something else});
 ```
 #### Event
 You can add some event, anywhere, at anytime in your code. You define the duration of your event and what it does.
