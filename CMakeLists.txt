@@ -32,7 +32,14 @@ add_subdirectory(utils)
 
 add_library(2Dengine ${SOURCE_FILES})
 target_link_libraries(2Dengine glish SDL2 SDL2_image)
-
+install(
+        TARGETS 2Dengine
+        ARCHIVE DESTINATION lib
+)
+install(
+        DIRECTORY inc/2dEngine
+		DESTINATION include
+)
 
 file(GLOB_RECURSE TEST_HPP_FILES test/*.hpp )
 file(GLOB_RECURSE TEST_CPP_FILES test/*.cpp)
