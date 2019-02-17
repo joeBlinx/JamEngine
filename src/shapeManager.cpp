@@ -5,24 +5,24 @@
 #include "2dEngine/shapeManager.hpp"
 namespace JamEngine{
 
-	std::vector<glm::vec2> square{
-			{-1, 1},
-			{1, 1},
-			{-1, -1},
-			{1, -1}
+	std::vector<float> square{
+			-1, 1,
+			1, 1,
+			-1, -1,
+			1, -1
 	};
-	std::vector<glm::vec2> debugSquare{
-			{-1, -1},
-			{-1, 1},
-			{1, 1},
-			{1, -1},
-			{-1, -1}
+	std::vector<float> debugSquare{
+			-1, -1,
+			-1, 1,
+			1, 1,
+			1, -1,
+			-1, -1
 	};
-	std::vector<glm::vec2> uv{
-			{0, 0},
-			{1, 0},
-			{0, 1},
-			{1, 1}
+	std::vector<float> uv{
+			0, 0,
+			1, 0,
+			0, 1,
+			1, 1
 	};
 
 	ShapeManager ShapeManager::shapeManager;

@@ -28,11 +28,11 @@ const glm::vec3 &Camera::getUp() const {
 }
 
 Camera::Camera(const glm::vec2 &pos, float bottom, float top,
-			   float left, float right, float near, float far) : pos(glm::vec3(pos, 1)),
+			   float left, float right, float _near, float _far) : pos(glm::vec3(pos, 1)),
 																eye(glm::vec3(pos.x, pos.y, 0)),
 																up(glm::vec3(0, 1, 0)),
-																near(near),
-																far(far),
+																_near(_near),
+																_far(_far),
 																bottom(bottom),
 																top(top),
 																left(left),
@@ -83,13 +83,13 @@ void Camera::computeLookAt() {
 }
 
 void Camera::computeProj() {
-	    if(!far){
+	    if(!_far){
 
         projection = glm::ortho(left, right, bottom, top);
 
     }else{
 
-        projection = glm::ortho(left, right, bottom, top, near, far);
+        projection = glm::ortho(left, right, bottom, top, _near, _far);
     }
 }
 

@@ -4,12 +4,13 @@ out vec4 color;
 
 in vec2 uvOut;
 uniform sampler2D texture2D;
-uniform bool hasTexture;
+uniform int hasTexture;
 
 void main() {
 
-    if(hasTexture){
+    if(hasTexture != 0){
         color = texture(texture2D, uvOut);
+
     }else{
         color = vec4(0, 0, 0.5, 1);
     }

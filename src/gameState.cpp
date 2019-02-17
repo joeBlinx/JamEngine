@@ -1,7 +1,9 @@
 //
 // Created by stiven on 18-02-27.
 //
-
+#ifdef WIN32
+#include <windef.h>
+#endif
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 #include <2dEngine/input/InputEventHandler.hpp>
@@ -11,9 +13,8 @@
 #include <2dEngine/scene.hpp>
 #include <2dEngine/camera.hpp>
 #include <2dEngine/progShader/programManager.hpp>
-#include <utils/log.hpp>
 #include "gameState.hpp"
-
+#include <glm/gtc/type_ptr.hpp>
 namespace JamEngine {
 	GameState GameState::gameState;
 
@@ -21,7 +22,7 @@ namespace JamEngine {
 		gameState.width = &(window.getSettings().width);
 		gameState.height = &(window.getSettings().height);
 		while(!gameState.endGame) {
-			glClear(GL_COLOR_BUFFER_BIT);
+			glishClear(GL_COLOR_BUFFER_BIT);
 			int start = SDL_GetTicks();
 			int end;
 
@@ -100,7 +101,7 @@ namespace JamEngine {
 		if(Camera::getCurrent()){
 			cam = Camera::getCurrent()->getCamView();
 		}
-		ProgramManager::updateAllProg("camera", cam);
+		ProgramManager::updateAllProg("camera", glm::value_ptr(cam));
 		for(auto &ent : Scene::getEntities()){
 			ent->display();
 		}
@@ -156,8 +157,8 @@ namespace JamEngine {
 		int x, y;
 		float sendX, sendY;
 		SDL_GetMouseState(&x, &y);
-		sendX = (((float)x/window.getSettings().width) -0.5f) *2.0f;
-		sendY = - (((float)y/window.getSettings().height) - 0.5f)*2.0f ;
+		sendX = ((float)x - window.getSettings().width * 0.5f) *2.0f;
+		sendY = - ((float)y - window.getSettings().height * 0.5f)*2.0f;
 
 		GET_INPUTEVENTHANDLER("default").executeMouseFunction(sendX, sendY);
 	}

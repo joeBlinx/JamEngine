@@ -3,7 +3,9 @@
 //
 #ifndef INC_2DENGINE_CAMERA_HPP
 #define INC_2DENGINE_CAMERA_HPP
-
+#ifdef WIN32
+#include <windef.h>
+#endif
 #include <glm/vec3.hpp>
 #include <glm/vec2.hpp>
 #include <glm/mat4x4.hpp>
@@ -15,7 +17,7 @@ private:
     glm::vec3 eye;
     glm::vec3 up;
 
-    float near, far;
+    float _near, _far;
     float bottom, top;
     float left, right;
 
@@ -33,7 +35,7 @@ public:
     Camera(const glm::vec2 &pos,
 		   float bottom, float top,
 		   float left, float right,
-		   float near = 0, float far = 0);
+		   float _near = 0, float _far = 0);
 
     const glm::vec3 &getPos() const;
 

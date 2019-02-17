@@ -1,7 +1,9 @@
 //
 // Created by stiven on 18-02-27.
 //
-
+#ifdef WIN32
+#include <windef.h>
+#endif
 #include <fstream>
 #include <iostream>
 #include "scene.hpp"

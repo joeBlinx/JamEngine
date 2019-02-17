@@ -11,6 +11,7 @@ void main() {
     vec4 black = vec4(0, 0, 0, 1);
     if(isSquare){
         color = black;
+
     }else{
     float lengthCircle = length(uvOut - vec2(0.5)) ;
         float min = 0.01;
@@ -25,6 +26,9 @@ void main() {
 
          if(lengthCircle < 0.5 && lengthCircle > 0.5-delta){
               color = black;
+         }else
+         {
+            color = vec4(0);
          }
     }
 }

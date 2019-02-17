@@ -12,7 +12,7 @@
 namespace JamEngine {
 	struct compare{
 
-		bool operator()(Entity *a, Entity * b){
+		bool operator()(Entity *a, Entity * b) const{
 			return a->getPriority() < b->getPriority();
 		}
 	};

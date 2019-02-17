@@ -5,8 +5,11 @@
 #ifndef INC_2DENGINE_PROGRAMMANAGER_HPP
 #define INC_2DENGINE_PROGRAMMANAGER_HPP
 
-#include <glish/utils/uniContainer.hpp>
+#include <glish3/programGL.hpp>
 #include <2dEngine/assetsList.h>
+#include <glm/vec2.hpp>
+#include <glm/detail/type_mat.hpp>
+#include <glm/detail/type_mat4x4.hpp>
 
 namespace JamEngine {
 	struct transformStorage {
@@ -27,7 +30,7 @@ namespace JamEngine {
 
 		return mat;
 	}
-	class ProgramManager  : public AssetsList<glish::UniContainer>{
+	class ProgramManager  : public AssetsList<glish3::ProgramGL>{
 		static ProgramManager programManager;
 		int lastProg = -1;
 		static void use(int id);
@@ -35,20 +38,31 @@ namespace JamEngine {
 
 	public:
 		static int get(std::string && key);
-		static int addProgram(std::string && key ,glish::UniContainer && program);
+		static int addProgram(std::string &&key, glish3::ProgramGL &&program);
 
 		static void init();
 		static void quit();
-		template <class ...Ts>
-				static void update(int i, Ts &&...  args){
+		template <class T>
+		static void update(glish3::ProgramGL & prog, std::string const & uni, T * data)
+		{
+			prog[uni] = data;
+		}
+		template <class T, class ...Ts>
+				static void update(int i, std::string const & uni, T * data, Ts &&...  args){
 			use(i);
-			programManager[i].update(std::forward<Ts>(args)...);
+			update(programManager[i], uni, data);
+			if constexpr (sizeof...(Ts) > 0)
+			{
+				update(i, std::forward<Ts>(args)...);
+			}
+
 		}
 		template <class ...Ts >
 				static void updateAllProg(Ts && ...args){
-			for (auto & prog : ProgramManager::programManager){
-				prog.use();
-				prog.update(std::forward<Ts>(args)...);
+					for(size_t i = 0; i < programManager.ids.size(); i++)
+			{
+
+				update(i, std::forward<Ts>(args)...);
 			}
 		}
 		static void initDefaultProg(const std::string &path);

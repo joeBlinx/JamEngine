@@ -1,7 +1,9 @@
 //
 // Created by Stiven on 29-Mar-18.
 //
-
+#ifdef WIN32
+#include <windef.h>
+#endif
 #include "2dEngine/progShader/programManager.hpp"
 #ifdef WIN32
 #define M_PI 3.14159
@@ -30,7 +32,7 @@ namespace JamEngine{
 		return programManager.keys[std::move(key)];
 	}
 
-	int ProgramManager::addProgram(std::string &&key, glish::UniContainer &&program) {
+	int ProgramManager::addProgram(std::string &&key, glish3::ProgramGL &&program) {
 		return programManager.add(std::move(key), std::move(program));
 	}
 
@@ -46,25 +48,25 @@ namespace JamEngine{
 	}
 
 	void ProgramManager::initDebugProg(const std::string &path) {
-		glish::UniContainer debugProg{
-				glish::shaderFile{GL_VERTEX_SHADER, (path + std::__cxx11::string("vertDebug.glsl")).c_str()},
-				glish::shaderFile{GL_FRAGMENT_SHADER, (path + std::__cxx11::string("fragDebug.glsl")).c_str()}
+		glish3::Shader vertex =
+				glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, (path + "vertDebug.glsl").c_str());
+		glish3::Shader fragment =
+				glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER, (path + "fragDebug.glsl").c_str());
+		glish3::ProgramGL debugProg{
+				vertex, fragment
 		};
-		debugProg.add<bool>("isSquare");
-		debugProg.add<float>("diameter");
 		programManager.addProgram("debug", std::move(debugProg));
 	}
 
 	void ProgramManager::initDefaultProg(const std::string &path) {
-        glish::UniContainer defaultProg{
-            glish::shaderFile{GL_VERTEX_SHADER, (path + std::__cxx11::string("vert.glsl")).c_str()},
-            glish::shaderFile{GL_FRAGMENT_SHADER, (path + std::__cxx11::string("frag.glsl")).c_str()}
-        };
-        defaultProg.add<glm::vec2>("orig");
-        defaultProg.add<glm::vec2>("textureSize");
-	    defaultProg.add<int>("texture2D");
-        defaultProg.add<bool>("hasTexture");
-
+		glish3::Shader vertex =
+				glish3::Shader::createShaderFromFile(GL_VERTEX_SHADER, (path + "vert.glsl").c_str());
+		glish3::Shader fragment =
+				glish3::Shader::createShaderFromFile(GL_FRAGMENT_SHADER, (path + "frag.glsl").c_str());
+		glish3::ProgramGL defaultProg{
+				vertex, fragment
+		};
+//
 		programManager.addProgram("default", std::move(defaultProg));
     }
 
@@ -81,11 +83,6 @@ namespace JamEngine{
 	}
 
 	void ProgramManager::initCommonUni() {
-		for(auto & prog : ProgramManager::programManager){
-			prog.add<glm::mat4>("camera");
-			prog.add<glm::mat3>("transform");
-			prog.add<glm::mat3>("scale");
 
-		}
 	}
 }

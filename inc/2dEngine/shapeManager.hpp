@@ -5,7 +5,7 @@
 #ifndef TRANSFORMOULE_SHAPEMANAGER_HPP
 #define TRANSFORMOULE_SHAPEMANAGER_HPP
 
-#include <glish/Vao.hpp>
+#include <glish3/Vao.hpp>
 #include <2dEngine/shape.hpp>
 #include <2dEngine/assetsList.h>
 

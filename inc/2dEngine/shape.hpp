@@ -5,11 +5,12 @@
 #ifndef INC_2DENGINE_SHAPE_HPP
 #define INC_2DENGINE_SHAPE_HPP
 
-#include <glish/Vao.hpp>
-
+#include <glish3/Vao.hpp>
+#include <vector>
+#include <glm/glm.hpp>
 namespace JamEngine {
 	class Shape {
-		glish::Vao<2> vao;
+		glish3::Vao vao;
 
 		std::vector<glm::vec2> vertices;
 		std::vector<glm::vec2> uvs;
@@ -21,11 +22,11 @@ namespace JamEngine {
 		Shape(Shape &&) = default;
 		Shape&operator=(Shape &&) = default;
 
-		void bind() const;
+		void bind() ;
 
-		void setShape(std::vector<glm::vec2> const &vertices);
+		void setShape(const std::vector<float> &vertices);
 
-		void setUv(const std::vector<glm::vec2> &uvs);
+		void setUv(const std::vector<float> &uvs);
 
 		void setIndices(const std::vector<int> &indices);
 

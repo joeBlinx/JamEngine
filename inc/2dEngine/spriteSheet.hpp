@@ -5,8 +5,9 @@
 #ifndef INC_2DENGINE_SPRITESHEET_HPP
 #define INC_2DENGINE_SPRITESHEET_HPP
 
-#include <glish/Texture.hpp>
+#include <glish3/texture2d.hpp>
 #include <glm/vec2.hpp>
+#include <string>
 
 namespace JamEngine {
 	class SpriteSheet {
@@ -15,7 +16,7 @@ namespace JamEngine {
 		glm::vec2 size;
 		int nbImageHoriz;
 		int nbImageVert;
-		glish::Texture texture;
+		glish3::Texture2D texture;
 
 	public:
 		SpriteSheet() = default;
@@ -26,7 +27,7 @@ namespace JamEngine {
 
 		const glm::vec2 &getSize() const;
 
-		void bindTexture(int number = 0) const;
+		void bindTexture(int number = 0) ;
 
 		int getNbImageHoriz() const;
 

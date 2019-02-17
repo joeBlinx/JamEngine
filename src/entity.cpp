@@ -1,7 +1,9 @@
 //
 // Created by stiven on 18-02-27.
 //
-
+#ifdef WIN32
+#include <windef.h>
+#endif
 #include <iostream>
 #include <2dEngine/spriteSheetManager.hpp>
 #include <2dEngine/shapeManager.hpp>
@@ -10,6 +12,7 @@
 #include "entity.hpp"
 #include "collider/squareCollider.hpp"
 #include <2dEngine/collider/collider.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace JamEngine{
 
@@ -31,16 +34,20 @@ namespace JamEngine{
 		transformStorage1.tran = pos;
 		transformStorage1.scale = size;
 		transformStorage1.angle = angle;
-		ProgramManager::update(0, "transform", transform(transformStorage1),
-										"scale", normalizedScreenSpace(GameState::windowWidth(), GameState::windowHeight()),
-		"hasTexture", (bool)sprite);
+		int has_sprite = sprite?1:0;
+		int textureID = 0;
+		ProgramManager::update(0, "transform", glm::value_ptr(transform(transformStorage1)),
+										"scale", glm::value_ptr(normalizedScreenSpace(GameState::windowWidth(),
+												GameState::windowHeight())),
+		"hasTexture", &has_sprite,
+							   "texture2D", &textureID);
 		if(sprite){
 			sprite.use();
-			ProgramManager::update(0, "orig", info.orig,
-											"textureSize", info.size);
+			ProgramManager::update(0, "orig", glm::value_ptr(info.orig),
+											"textureSize", glm::value_ptr(info.size));
 		}
 
-		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		glishDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	}
 
 
@@ -49,27 +56,33 @@ namespace JamEngine{
 		transformStorage1.tran = pos;
 		transformStorage1.scale = size;
 		transformStorage1.angle = angle;
-		ProgramManager::update(1, "scale", normalizedScreenSpace(GameState::windowWidth(), GameState::windowHeight()));
+		ProgramManager::update(1,
+				"scale", glm::value_ptr(normalizedScreenSpace(GameState::windowWidth(),
+						GameState::windowHeight())));
 
 		ShapeManager::use(0);
+		int isSquare = 0;
 		for(auto &sphereCollider : sphereColliders){
+			float diameter = sphereCollider.getDiameter();
 			transformStorage1.tran = sphereCollider.getReference();
 			transformStorage1.scale = glm::vec2(sphereCollider.getDiameter());
-			ProgramManager::update(1, "isSquare", false,
-			                       "transform", transform(transformStorage1),
-			                       "diameter", sphereCollider.getDiameter()
+
+			ProgramManager::update(1, "isSquare", &isSquare,
+			                       "transform", glm::value_ptr(transform(transformStorage1)),
+			                       "diameter", &diameter
 			);
-			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+			glishDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 		}
 		ShapeManager::use(1);
+		isSquare = 1;
 		for(auto &squareCollider : squareColliders){
 			transformStorage1.tran = squareCollider.getReference();
 			transformStorage1.scale = squareCollider.getSize();
-			ProgramManager::update(1, "isSquare", true,
-			                       "transform", transform(transformStorage1)
+			ProgramManager::update(1, "isSquare", &isSquare,
+			                       "transform", glm::value_ptr(transform(transformStorage1))
 			);
-			glDrawArrays(GL_LINE_STRIP, 0, 5);
+			glishDrawArrays(GL_LINE_STRIP, 0, 5);
 
 		}
 
