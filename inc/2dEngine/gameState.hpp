@@ -8,6 +8,9 @@
 #include <functional>
 #include <2dEngine/input/InputEventHandler.hpp>
 #include <SDL2/SDL.h>
+#include <glish3/gl_glew.hpp>
+#include <glish3/glfunction.hpp>
+#include <2dEngine.h>
 
 namespace JamEngine {
 	struct Window;
@@ -34,7 +37,8 @@ namespace JamEngine {
 	public:
 		GameState() = default;
 
-		static void loop(Window &window);
+		template<class ...Ts>
+		static void loop(Window &window, Ts &&... update);
 		static void gameOver();
 		static float deltaTime();
 		static void enableDebug();
@@ -46,8 +50,32 @@ namespace JamEngine {
 		void mouseInput(Window &window);
 	};
 
+	template<class ...Ts>
+	void GameState::loop(Window &window, Ts &&... update) {
+		gameState.width = &(window.getSettings().width);
+		gameState.height = &(window.getSettings().height);
+		while(!gameState.endGame) {
+			glishClear(GL_COLOR_BUFFER_BIT);
+			int start = SDL_GetTicks();
+			int end;
 
+			EventManager::execute(gameState.delta);
+			gameState.input(window);
 
+			gameState.update();
+			(update.update(), ...);
+
+			gameState.display();
+			(update.display(), ...);
+
+			SDL_GL_SwapWindow(window);
+			end = SDL_GetTicks();
+			int sub = end - start;
+			if (sub < gameState.delta*1000) {
+				SDL_Delay(gameState.delta*1000- sub);
+			}
+		}
+	}
 
 }
 

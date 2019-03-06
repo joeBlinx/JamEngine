@@ -33,10 +33,10 @@ namespace JamEngine {
 	class ProgramManager  : public AssetsList<glish3::ProgramGL>{
 		static ProgramManager programManager;
 		int lastProg = -1;
-		static void use(int id);
 		static void initCommonUni();
-
 	public:
+
+		static void use(int id);
 		static int get(std::string && key);
 		static int addProgram(std::string &&key, glish3::ProgramGL &&program);
 

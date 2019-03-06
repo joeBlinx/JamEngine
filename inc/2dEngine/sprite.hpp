@@ -20,6 +20,8 @@ namespace JamEngine {
 		float currentTime = 0;
 		int nbImage = 0;
 		info infoSprite;
+
+
 	public:
 		Sprite() = default;
 		Sprite(SpriteSheet *spriteSheet, float timeChange, int nbImage = 0);

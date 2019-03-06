@@ -10,7 +10,7 @@ include_directories(BEFORE_SYSTEM PRIVATE inc/2dEngine)
 include_directories(BEFORE_SYSTEM PRIVATE glish/inc)
 include_directories(BEFORE_SYSTEM PRIVATE utils/inc/)
 
-set(SOURCE_FILES ${HPP_FILES} ${CPP_FILES} inc/2dEngine/log.hpp)
+set(SOURCE_FILES ${HPP_FILES} ${CPP_FILES} inc/2dEngine/log.hpp inc/2dEngine/ui/AbstractUI.hpp)
 
 if (CYGWIN)
     set(WIN32 1)

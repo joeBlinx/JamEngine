@@ -12,7 +12,7 @@
 namespace JamEngine {
 	Scene Scene::scene;
 	void Scene::init(std::string &&layerFile) {
-		std::ifstream file{std::move(layerFile)};
+		std::ifstream file{layerFile};
 		if(!file.is_open()){
 			std::cerr << "file : " << layerFile << " not found";
 			return;
@@ -58,7 +58,7 @@ namespace JamEngine {
 
 
 	Scene::Scene() {
-		layers.push_back("default");
+		layers.emplace_back("default");
 	}
 	Scene::~Scene() {
 
@@ -84,6 +84,7 @@ namespace JamEngine {
 		}
 		deadEntities.clear();
 	}
+
 
 	void Scene::remove(Entity *entity) {
 		removeEntities.insert(entity);

@@ -18,27 +18,7 @@
 namespace JamEngine {
 	GameState GameState::gameState;
 
-	void GameState::loop(Window &window) {
-		gameState.width = &(window.getSettings().width);
-		gameState.height = &(window.getSettings().height);
-		while(!gameState.endGame) {
-			glishClear(GL_COLOR_BUFFER_BIT);
-			int start = SDL_GetTicks();
-			int end;
 
-			EventManager::execute(gameState.delta);
-			gameState.input(window);
-			gameState.update();
-			gameState.display();
-
-			SDL_GL_SwapWindow(window);
-			end = SDL_GetTicks();
-			int sub = end - start;
-			if (sub < gameState.delta*1000) {
-				SDL_Delay(gameState.delta*1000- sub);
-			}
-		}
-	}
 
 	void GameState::input(Window &window) {
 		SDL_Event ev;
